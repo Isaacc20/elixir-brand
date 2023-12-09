@@ -1,0 +1,167 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
+}
+
+.big-div{
+    width: 100vw !important;
+}
+/* TOPNAV */
+.topnav{
+    /* background-color: #21294E; */
+    box-shadow: 0px 5px 5px #ffff;
+    position: sticky;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100vw !important;
+    background-color: white;
+}
+.topnav .search{
+    border: 1px solid white;
+    overflow: hidden;
+    width: fit-content;
+}
+.topnav .search{
+    border: 1px solid black;
+}
+.topnav .search input{
+    border: none;
+    outline: none;
+    background-color: transparent;
+    width: 30vw;
+}
+.topnav .search :last-child{
+    border: none;
+}
+/* .topnav .category:hover{
+    text-decoration: underline !important;
+} */
+/* .topnav .category-dropdown{
+    height: fit-content; */
+    /* border: 1px solid black; */
+    /* box-shadow: 0px 3px 5px rgba(128, 128, 128, 0.547);
+    border-top: none;
+    width: 150px !important;
+}
+.topnav .category :last-child, .topnav .category button{
+    margin-bottom: -20px;
+}
+.topnav .category:hover .category-dropdown{
+    display: grid !important;
+    position: absolute; */
+    /* top: 5px; */
+/* }
+.topnav .author-dropdown{
+    position: absolute; */
+    /* height: fit-content; */
+    /* border: 1px solid black; */
+    /* box-shadow: 2px 3px 5px rgba(128, 128, 128, 0.53);
+    border-left: none;
+    width: 200px; */
+    /* left: -6px; */
+    /* background-color: white;
+}
+.topnav .author:hover .author-dropdown{
+    display: grid !important;
+} */
+.topnav a{
+    border: none;
+}
+.topnav .log, .notfound .log{
+    background-color: #2d365f !important;
+    width: fit-content;
+}
+.topnav .sign{
+    color: #2d365f;
+    border: 1px solid #2d365f;
+}
+.notfound h1{
+    white-space: nowrap;
+}
+a, button{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
+}
+
+/* WELCOME */
+
+/* .welcome{
+    height: 60vh;
+    background-image: url('../assets/billboard.jpg');
+    background-position: right;
+    background-size: 60vw;
+    background-repeat: no-repeat;
+    background-blend-mode:lighten;
+} */
+/* .wellcome{
+    background: linear-gradient(to right, #2d365f, #2d365f, #ffffff00);
+    width: 100vw;
+    background: linear-gradient(to left, #CCB9CC, #CCB9CC, #ffffff00);
+} */
+/* .wellcome div{
+    text-align: end;
+    float: right;
+} */
+/* .wellcome p, .wellcome span{
+    line-height: 20px;
+    word-spacing: 5px;
+}
+input{
+    accent-color: #2d365f;
+} */
+/* .filter-by:focus-within .filter-dropdown{
+    display: grid !important;
+    transition: all ease-in-out 1s;
+} */
+
+/* SIDENAV */
+/* .sidenav{
+    border-right: 1px solid black;
+}
+.sidenav button:hover, .sidenav label:hover{
+    background-color: #2d365f39;
+} */
+
+/* DISPLAY */
+/* .display .card{
+    height: 200px;
+    width: 150px;
+}
+.display .card div{
+    background-image: url('../assets/brand-cards.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+} */
+
+.footer{
+    background-color: #2d365f;
+    /* position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0; */
+}
+
+.footer .footer-div{
+    width: 100vw !important;
+}
+.footer .links ul, .footer .follow ul{
+    list-style-type: none;
+}
+.footer li, .footer a{
+    line-height: 30px;
+    width: 100% !important;
+}
+.footer a{
+    text-decoration: none;
+}
+.footer a:hover{
+    text-decoration: underline;
+}
+.footer .follow a{
+    /* background-color: white; */
+}
+.footer .follow a .fa{
+    background-color: transparent !important;
+}
