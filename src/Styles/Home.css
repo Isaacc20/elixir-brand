@@ -1,7 +1,8 @@
 *{
     padding: 0;
     margin: 0;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
+    /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important; */
+    transition: all ease-in-out 1s;
 }
 
 .big-div{
@@ -17,6 +18,7 @@
     left: 0;
     width: 100vw !important;
     background-color: white;
+    z-index: 1000;
 }
 .topnav .search{
     border: 1px solid white;
@@ -68,14 +70,25 @@
 } */
 .topnav a{
     border: none;
+    color: black;
+}
+.topnav a:hover{
+    /* background-color: #B2BACC; */
+    background-color: #532768;
+    color: white !important;
+}
+.topnav a:active{
+    background-color: #ffff !important;
+    color: #532768 !important;
+    border: 1px solid #532768;
 }
 .topnav .log, .notfound .log{
-    background-color: #2d365f !important;
+    background-color: #532768 !important;
     width: fit-content;
 }
 .topnav .sign{
-    color: #2d365f;
-    border: 1px solid #2d365f;
+    color: #532768;
+    border: 1px solid #532768;
 }
 .notfound h1{
     white-space: nowrap;
@@ -95,7 +108,7 @@ a, button{
     background-blend-mode:lighten;
 } */
 /* .wellcome{
-    background: linear-gradient(to right, #2d365f, #2d365f, #ffffff00);
+    background: linear-gradient(to right, #532768, #532768, #ffffff00);
     width: 100vw;
     background: linear-gradient(to left, #CCB9CC, #CCB9CC, #ffffff00);
 } */
@@ -108,7 +121,7 @@ a, button{
     word-spacing: 5px;
 }
 input{
-    accent-color: #2d365f;
+    accent-color: #532768;
 } */
 /* .filter-by:focus-within .filter-dropdown{
     display: grid !important;
@@ -120,7 +133,7 @@ input{
     border-right: 1px solid black;
 }
 .sidenav button:hover, .sidenav label:hover{
-    background-color: #2d365f39;
+    background-color: #53276839;
 } */
 
 /* DISPLAY */
@@ -136,7 +149,7 @@ input{
 } */
 
 .footer{
-    background-color: #2d365f;
+    background-color: #532768;
     /* position: sticky;
     bottom: 0;
     left: 0;

@@ -9,9 +9,9 @@ import '../Styles/Landing.css'
 import learning from '../assets/Learning-amico.svg'
 // import {ReactComponent as Reading} from '../assets/house-bookshelves-animate.svg'
 // import learning from '../assets/Learning-amico.svg'
-import book from '../assets/flipped_open_book.jpg'
+import book from '../assets/book.jpg'
 import reading from '../assets/man_with_bible.jpg'
-import hood from '../assets/brand_hood-removebg-preview.png'
+import hood from '../assets/IMG-20231212-WA0010-removebg-preview.png'
 import podcast from '../assets/podcast.jpg'
 
 const Landing = () => {
@@ -70,7 +70,7 @@ const Landing = () => {
                     <div className="about d-flex align-items-center">
                         <div className="text-start p-5 d-flex flex-column gap-5 mx-5 text-light">
                             <h1 className='text-center'>ABOUT US</h1>
-                            <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit nisi similique excepturi quia? Quibusdam iure alias eveniet commodi itaque laborum quasi provident maxime officia! Soluta corporis quae quo nostrum dignissimos, esse aliquid ipsam voluptatibus consectetur iusto enim recusandae laudantium eveniet pariatur rerum sapiente obcaecati fugit id voluptate quos doloremque magnam!</h5>
+                            <h5 className='d-flex flex-column align-items-start justify-content-around gap-3'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit nisi similique excepturi quia? Quibusdam iure alias eveniet commodi itaque laborum quasi provident maxime officia! Soluta corporis quae quo nostrum dignissimos, esse aliquid ipsam voluptatibus consectetur iusto enim recusandae laudantium eveniet pariatur rerum sapiente obcaecati fugit id voluptate quos doloremque magnam! <button className="btn bg-white text-dark">Lorem ipsum</button></h5>
                         </div>
                         <div className='h-100 w-50 img'>
                             <img src={hood} className='h-100' alt="" />

@@ -10,13 +10,13 @@ const Topnav = () => {
     <div className='topnav d-flex justify-content-between align-items-stretch px-5 py-2 shadow-sm'>
         {/* <img src={require("../images/logo.jpg")} width={'100px'} alt="" /> */}
         <Link to={'/'} className='my-2'><img src={logo} width={'90px'} alt="LOGO" /></Link>
-        <div className='d-flex align-items-center gap-2'>
+        {/* <div className='d-flex align-items-center gap-2'>
             <div className="search rounded-pill d-flex align-items-center">
                 <input className='h-100 px-3 py-1 text-white' type="text" name="" id="" placeholder="Search..." />
-                {/* <button className='bg-transparent text-white py-1 px-3'><FaSearch /></button> */}
+                <button className='bg-transparent text-white py-1 px-3'><FaSearch /></button>
             </div>
-            {/* <Themes /> */}
-        </div>
+            <Themes />
+        </div> */}
         <div className='d-flex align-items-stretch gap-3'>
             {/* <div className='category d-grid justify-content-center align-items-center'>
                 <button className='btn dropdown-toggle text-white'>Categories</button>
@@ -52,12 +52,13 @@ const Topnav = () => {
                     </div>
                 </div>
             </div> */}
-            <Link className="btn text-start px-3 d-flex align-items-center justify-content-between small">Shop</Link>
-            <Link className="btn text-start px-3 d-flex align-items-center justify-content-between small">Podcast</Link>
-            <a href='#about' className="btn text-start px-3 d-flex align-items-center justify-content-between small">ABOUT</a>
-            <a href='#contact' className="btn text-start px-3 d-flex align-items-center justify-content-between">Contact us</a>
-            <Link className="btn text-start px-3 d-flex align-items-center justify-content-between log text-white">Log in</Link>
-            <Link className="btn text-start px-3 d-flex align-items-center justify-content-between sign">Sign up</Link>
+            <Link to={'/'} className="rounded-1 text-decoration-none text-black px-3 d-flex align-items-center justify-content-between small">Home</Link>
+            <Link to={'/shop'} className="rounded-1 text-decoration-none text-black px-3 d-flex align-items-center justify-content-between small">Shop</Link>
+            <Link className="rounded-1 text-decoration-none text-black px-3 d-flex align-items-center justify-content-between small">Podcast</Link>
+            <a href='#about' className="rounded-1 text-decoration-none text-black px-3 d-flex align-items-center justify-content-between small">ABOUT</a>
+            <a href='#contact' className="rounded-1 text-decoration-none text-black px-3 d-flex align-items-center justify-content-between small">Contact us</a>
+            {/* <Link className="btn text-start px-3 d-flex align-items-center justify-content-between log text-white">Log in</Link>
+            <Link className="btn text-start px-3 d-flex align-items-center justify-content-between sign">Sign up</Link> */}
             {/* <Link className="btn text-white text-start px-3 d-flex align-items-center justify-content-between"><FaBell /></Link>
             <Link className="btn text-white text-start px-3 d-flex align-items-center justify-content-between"><FaUser /></Link> */}
             {/* <Link>About us</Link> */}

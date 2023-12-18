@@ -1,0 +1,90 @@
+.shop .search{
+    background-image: url('../assets/books.jpg');
+    background-position: center;
+    background-size: cover;
+    box-shadow: 0px 0px 100px rgb(0, 0, 0) inset;
+    height: 60vh;
+}
+.shop .search .search-div{
+    box-shadow: inset 0px 0px 100px #532768;
+    background-color: #030e3d7b;
+    /* background-blend-mode: darken; */
+}
+.shop .search .search-input{
+    width: 75vw;
+    min-width: 300px;
+}
+.search .search-input div{
+    /* border: 1px solid black; */
+    overflow: hidden;
+}
+.search .search-input div input, .search .search-input div select, .search .search-input div button{
+    border: none;
+    /* outline: none; */
+}
+/* .search .search-input div select{
+    border-inline: 1px solid black;
+} */
+.search .search-input .search-btn{
+    background-color: #532768;
+    color: white;
+}
+.search .search-input .search-btn:hover{
+    background-color: white;
+    border: 1px solid #532768;
+    color: #532768;
+    transition: all ease-in-out .2s !important;
+}
+
+
+/* SIDENAV */
+.sidenav{
+    /* border-right: 1px solid black; */
+    box-shadow: 0px 2px 4px gray;
+    min-width: fit-content !important;
+    /* background-color: #2d365f39; */
+}
+/* .sidenav button:hover, .sidenav label:hover{
+    background-color: #2d365f39;
+} */
+.sidenav input{
+    accent-color: #2d2d2d;
+}
+
+/* DISPLAY */
+.display .card-div{
+    flex-wrap: wrap;
+    /* justify-content: space-evenly; */
+    gap: 20px;
+}
+.display .card{
+    height: 270px;
+    width: 200px;
+    overflow: hidden;
+}
+.display .card div{
+    background-image: url('../assets/brand-cards.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+}
+.display .card .save{
+    border: none;
+    display: none;
+}
+.display .card .save:hover{
+    background-color: rgba(128, 128, 128, 0.838) !important;
+}
+.display .card .download{
+    background-color: #532768;
+}
+.display .card .download:hover{
+    background-color: white;
+    color: #532768 !important;
+    border: 1px solid #532768;
+}
+.display .card .download:active{
+    background-color: #602e78;
+    color: white !important;
+}

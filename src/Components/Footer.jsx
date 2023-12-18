@@ -36,9 +36,9 @@ const Footer = () => {
                 <div className='text-white follow'>
                     <h4 className='py-3'>Follow us</h4>
                     <div className=' d-flex gap-3 w-100 text-start'>
-                        <Link className='rounded-circle d-flex align-items-center justify-conteent-center text-white'><FaFacebook className='icon h1' /></Link>
-                        <Link className='rounded-circle d-flex align-items-center justify-conteent-center text-white'><FaInstagramSquare className='icon h1' /></Link>
-                        <Link className='rounded-circle d-flex align-items-center justify-conteent-center text-white'><RiTwitterFill className='icon h1' /></Link>
+                        <Link className='d-flex align-items-center justify-conteent-center text-white'><FaFacebook className='icon h1' /></Link>
+                        <Link className='d-flex align-items-center justify-conteent-center text-white'><FaInstagramSquare className='icon h1' /></Link>
+                        <Link className='d-flex align-items-center justify-conteent-center text-white'><RiTwitterFill className='icon h1' /></Link>
                     </div>
                 </div>
             </div>

@@ -8,6 +8,7 @@ import Landing from "./Pages/Landing";
 import NotFound from "./Pages/NotFound";
 import Topnav from "./Components/Topnav";
 import Footer from "./Components/Footer";
+import Shop from "./Pages/Shop";
 // import Home from "./Components/Home";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Topnav />
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/shop" element={<Shop />} />
           <Route path="/notfound" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
