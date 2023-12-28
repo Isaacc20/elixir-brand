@@ -1,6 +1,7 @@
 .top .home{
-    height: 90vh;
-    /* background-image: url('../assets/model_books(7).jpg'); */
+    height: 90.05vh;
+    background-image: url('../assets/brand-cards.jpg');
+    background-attachment: fixed;
     background-position: center;
     background-size: cover;
     width: 100vw;
@@ -8,7 +9,7 @@
 .top .home h1{
     font-size: 50px;
     line-height: 70px;
-    color: rgb(1, 17, 61);
+    color: white;
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -16,13 +17,25 @@
     gap: 50px;
 }
 .top .home h1 button{
-    background-color: #532768;
+    background-color: transparent;
+    border: 1px solid white;
     padding: 10px 20px;
 }
+.top .home h1 button:hover{
+    background-color: rgb(31, 12, 68);
+    border: 1px solid transparent;
+    box-shadow: 0px 0px 7px white;
+    transition: all ease-in-out .3s;
+}
 .top .amico{
-    background-color: #532768;
+    background-color: #030e3d7b;
+    /* position: absolute;
+    width: 100vw;
+    z-index: -10;
+    background-color: rgb(31, 12, 68);
     border-radius: 0px 0px 210px 520px;
-    text-align: end;
+    transform: skewY(6deg);
+    text-align: end; */
 }
 /* .top .home div{
     background-image: url('../assets/model_books(7)b.jpg');
@@ -37,78 +50,126 @@
     gap: 20px;
 }
 .offers .offer{
-    width: 25vw;
+    width: 27vw;
     min-width: 250px;
     max-width: 400px;
     overflow: hidden;
     height: 420px;
-    box-shadow: 0px 0px 2px grey;
+    /* box-shadow: 0px 0px 2px grey; */
 }
 .offers h1{
-    color: #532768;
+    color: rgb(31, 12, 68);
 }
 .offers .offer h5{
-    color: #532768;
+    color: rgb(31, 12, 68);
 }
 .offers .offer button{
-    background-color: #532768;
+    background-color: rgb(31, 12, 68);
 }
 .offers .offer button:hover{
     background-color: white;
-    color: #532768 !important;
-    border: 1px solid #532768;
+    color: rgb(31, 12, 68) !important;
+    border: 1px solid rgb(31, 12, 68);
+    transition: all ease-in-out .3s;
 }
 
 .about-div{
-    background-color: #ADA0BF;
+    /* background-color: #ADA0BF; */
 }
 .about{
-    height: 90vh;
-    background-color: #532768;
-    border-radius: 370px 0 0 0;
+    position: relative;
+    /* height: 90vh; */
+    /* flex-wrap: wrap; */
+    /* background-color: rgb(31, 12, 68);
+    border-radius: 370px 0 0 0; */
 }
 
-.about h5{
+.about h1{
+    color: rgb(31, 12, 68);
+}
+
+.about span{
     line-height: 27px;
+    word-spacing: 5px;
+}
+.about span button{
+    border: 1px solid rgb(31, 12, 68) !important;
+    color: rgb(31, 12, 68) !important;
+}
+.about span button:hover{
+    background-color: rgb(31, 12, 68) !important;
+    color: white !important;
+    box-shadow: 0px 0px 7px grey;
+    transition: all ease-in-out 0.3s !important;
 }
 
-.about .img{
-    background-color: rgba(240, 248, 255, 0.578);
+.team .offer-div .img{
+    /* background-color: rgba(240, 248, 255, 0.578);
     border-radius: 50% 0 0 50%;
-    width: 50vw !important;
+    width: 50vw !important; */
+    width: 100% !important;
+    height: 75% !important;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-x: center !important;
+}
+.team .offer-div .img1{
+    background-image: url('../assets/hood_fv.jpg');
+}
+.team .offer-div .img2{
+    background-image: url('../assets/hood_bv.jpg');
+}
+.team .offer-div .img3{
+    background-image: url('../assets/brand hood.jpg');
 }
 
 .team{
-    background-color: #532768;
-    height: fit-content;
-    border-radius: 0;
+    /* background-color: rgb(31, 12, 68); */
+    /* height: fit-content;
+    border-radius: 0; */
+}
+.team .offer-div{
+    /* width: 100vw !important; */
+    display: flex;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    
 }
 .team .container h1{
     white-space: nowrap;
+    color: rgb(31, 12, 68) !important;
 }
 .team .offer{
     height: 400px;
     box-shadow: 0px 0px 5px gray;
 }
+.team .offer div{
+    width: 100% !important;
+}
+
 
 .contact{
     background-color: #ADA0BF;
 }
+.contact h1{
+    color: rgb(31, 12, 68);
+}
 .contact form textarea, .contact form input{
-    border: 1px solid #532768;
-    outline-color: #532768;
+    border: 1px solid rgb(31, 12, 68);
+    outline-color: rgb(31, 12, 68);
 }
 .contact form button{
-    background-color: #532768;
+    background-color: rgb(31, 12, 68);
     color: white;
 }
 .contact form button:hover{
     background-color: white;
-    color: #532768;
-    border: 1px solid #532768;
+    color: rgb(31, 12, 68);
+    border: 1px solid rgb(31, 12, 68);
 }
 .contact p{
-    color: #532768;
+    color: rgb(31, 12, 68);
 }
 
 /* .first{
@@ -127,3 +188,17 @@
     background-image: linear-gradient(to right, rgba(0, 0, 0), rgba(0, 0, 0), rgba(0, 0, 0, 0));
     
 } */
+
+@media (max-width: 1000px) {
+    .about{
+        flex-direction: column;
+        gap: 20px;
+    }
+    .about h1{
+        position: absolute;
+        top: 0;
+    }
+    .about .img, .about div{
+        width: 80vw !important;
+    }
+}

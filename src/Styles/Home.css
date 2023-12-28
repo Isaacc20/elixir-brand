@@ -74,21 +74,21 @@
 }
 .topnav a:hover{
     /* background-color: #B2BACC; */
-    background-color: #532768;
+    background-color: rgb(31, 12, 68);
     color: white !important;
 }
 .topnav a:active{
     background-color: #ffff !important;
-    color: #532768 !important;
-    border: 1px solid #532768;
+    color: rgb(31, 12, 68) !important;
+    border: 1px solid rgb(31, 12, 68);
 }
 .topnav .log, .notfound .log{
-    background-color: #532768 !important;
+    background-color: rgb(31, 12, 68) !important;
     width: fit-content;
 }
 .topnav .sign{
-    color: #532768;
-    border: 1px solid #532768;
+    color: rgb(31, 12, 68);
+    border: 1px solid rgb(31, 12, 68);
 }
 .notfound h1{
     white-space: nowrap;
@@ -108,7 +108,7 @@ a, button{
     background-blend-mode:lighten;
 } */
 /* .wellcome{
-    background: linear-gradient(to right, #532768, #532768, #ffffff00);
+    background: linear-gradient(to right, rgb(31, 12, 68), rgb(31, 12, 68), #ffffff00);
     width: 100vw;
     background: linear-gradient(to left, #CCB9CC, #CCB9CC, #ffffff00);
 } */
@@ -121,7 +121,7 @@ a, button{
     word-spacing: 5px;
 }
 input{
-    accent-color: #532768;
+    accent-color: rgb(31, 12, 68);
 } */
 /* .filter-by:focus-within .filter-dropdown{
     display: grid !important;
@@ -133,7 +133,7 @@ input{
     border-right: 1px solid black;
 }
 .sidenav button:hover, .sidenav label:hover{
-    background-color: #53276839;
+    background-color: rgb(31, 12, 68);
 } */
 
 /* DISPLAY */
@@ -149,7 +149,7 @@ input{
 } */
 
 .footer{
-    background-color: #532768;
+    background-color: rgb(31, 12, 68);
     /* position: sticky;
     bottom: 0;
     left: 0;
@@ -175,6 +175,7 @@ input{
 /* .footer .follow a{ */
     /* background-color: white; */
 /* } */
-.footer .follow a .fa{
-    background-color: transparent !important;
+.footer .follow a .icon:hover{
+    color: grey !important;
+    transition: all ease-in-out 0s !important;
 }

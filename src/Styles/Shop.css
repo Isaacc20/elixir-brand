@@ -1,12 +1,13 @@
 .shop .search{
-    background-image: url('../assets/books.jpg');
+    background-image: url('../assets/brand-cards.jpg');
+    background-attachment: fixed;
     background-position: center;
     background-size: cover;
     box-shadow: 0px 0px 100px rgb(0, 0, 0) inset;
-    height: 60vh;
+    height: 70vh;
 }
 .shop .search .search-div{
-    box-shadow: inset 0px 0px 100px #532768;
+    /* box-shadow: inset 0px 0px 100px #532768; */
     background-color: #030e3d7b;
     /* background-blend-mode: darken; */
 }
@@ -53,38 +54,62 @@
 
 /* DISPLAY */
 .display .card-div{
-    flex-wrap: wrap;
-    /* justify-content: space-evenly; */
-    gap: 20px;
+    /* width: fit-content; */
+    /* flex-wrap: wrap; */
+    /* justify-content: space-evenly !important; */
+    /* gap: 20px; */
 }
-.display .card{
+.display .cards{
     height: 270px;
     width: 200px;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
-.display .card div{
+.display .cards:hover{
+    box-shadow: 0px 8px 10px rgb(159, 158, 158) !important;
+    transform: translateY(-5px);
+}
+.display .cards:hover .img{
+    box-shadow: none !important;
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+.display .cards:hover .save{
+    display: block;
+    transition: all ease-in-out .2s;
+    /* transition-delay: 1s !important; */
+}
+.display .cards:focus-within .save{
+    display: block;
+}
+.display .cards .img{
     background-image: url('../assets/brand-cards.jpg');
     background-position: center;
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     position: relative;
 }
-.display .card .save{
+.display .cards .save{
     border: none;
     display: none;
 }
-.display .card .save:hover{
-    background-color: rgba(128, 128, 128, 0.838) !important;
+.display .cards .card{
+    display: none;
 }
-.display .card .download{
+.display .save-div:focus-within .card{
+    display: block;
+}
+.display .cards .save:hover{
+    background-color: rgba(128, 128, 128, 0.511) !important;
+}
+.display .cards .download{
     background-color: #532768;
 }
-.display .card .download:hover{
+.display .cards .download:hover{
     background-color: white;
     color: #532768 !important;
     border: 1px solid #532768;
 }
-.display .card .download:active{
+.display .cards .download:active{
     background-color: #602e78;
     color: white !important;
 }
