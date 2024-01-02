@@ -8,7 +8,7 @@
 }
 .shop .search .search-div{
     /* box-shadow: inset 0px 0px 100px #532768; */
-    background-color: #030e3d7b;
+    background-color: rgba(31, 12, 68, 0.484);
     /* background-blend-mode: darken; */
 }
 .shop .search .search-input{
@@ -102,14 +102,33 @@
     background-color: rgba(128, 128, 128, 0.511) !important;
 }
 .display .cards .download{
-    background-color: #532768;
+    background-color: white;
+    color: rgb(31, 12, 68) !important;
+    border: 1px solid rgb(31, 12, 68);
 }
 .display .cards .download:hover{
-    background-color: white;
-    color: #532768 !important;
-    border: 1px solid #532768;
+    background-color: rgb(31, 12, 68);
+    color: white !important;
+    box-shadow: 0px 0px 5px grey;
+    transition: all ease-in-out .3s;
 }
 .display .cards .download:active{
     background-color: #602e78;
     color: white !important;
+}
+
+@media (max-width: 990px) {
+    .display .card-div{
+        gap: 35px !important;
+    }
+}
+
+@media (max-width: 500px) {
+    .display .card-div{
+        gap: 20px !important;
+    }
+    .display .card-div .cards{
+        width: 170px;
+        height: 200px;
+    }
 }

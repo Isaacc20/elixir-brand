@@ -28,7 +28,7 @@
     transition: all ease-in-out .3s;
 }
 .top .amico{
-    background-color: #030e3d7b;
+    background-color: rgba(31, 12, 68, 0.484);
     /* position: absolute;
     width: 100vw;
     z-index: -10;

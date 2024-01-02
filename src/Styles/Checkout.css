@@ -1,0 +1,31 @@
+.checkout .bg{
+    background-image: url('../assets/brand-cards.jpg');
+    height: 20vh;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.checkout .bg h1{
+    background-color: rgba(31, 12, 68, 0.484) !important;
+}
+
+.checkout small{
+    font-size: smaller;
+}
+
+.checkout form .form-control:focus-within{
+    outline: 2px solid rgb(31, 12, 68) !important;
+}
+
+.checkout button{
+    border: 1px solid rgb(31, 12, 68);
+    color: rgb(31, 12, 68);
+}
+
+ .checkout button:hover{
+    background-color: rgb(31, 12, 68);
+    color: white;
+    box-shadow: 0px 0px 5px grey;
+    transition: all ease-in-out .2s;
+ }

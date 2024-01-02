@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import { FaFacebook, FaInstagramSquare } from "react-icons/fa";
 import { RiTwitterFill } from "react-icons/ri";
 import "../Styles/Home.css"
-import logo from "../assets/logo_1.png"
+import logo from "../assets/logo 1.png"
 
 const Footer = () => {
   return (
     <>
-        <div className='footer p-5'>
+        <footer className='footer p-5'>
             <div className="container d-flex justify-content-around align-items-start w-100 h-100">
                 <div className='text-start'>
                     <img src={logo} width={'150px'} alt="" />
@@ -45,7 +45,7 @@ const Footer = () => {
             <div className="text-center mt-5">
                 <span className='w-100 text-center text-white'>© 2023 The elixir brand. All rights reserved.</span>
             </div>
-        </div>
+        </footer>
     </>
   )
 }
