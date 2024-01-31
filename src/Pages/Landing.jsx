@@ -27,7 +27,7 @@ const Landing = () => {
                 <div className="top">
                     <div className="home d-flex align-items-center justify-content-center">
                         <div className="amico w-100 h-100 d-flex justify-content-center">
-                            <h1 className='w-75 text-center d-flex flex-column align-items-center justify-content-center'>Lorem ipsum dolor sit amet consectetur adipisicing.<button className="btn text-white">Lorem ipsum</button></h1>
+                            <h1 className='w-75 text-center d-flex flex-column align-items-center justify-content-center'>Power the future today.<button className="btn text-white">Get Started</button></h1>
                         </div>
                         {/* <div className='amico h-100 px-5'>
                              <img src={learning} className='w-75' alt="" /> 
@@ -39,46 +39,57 @@ const Landing = () => {
                     <h1 className='my-5'>What we offer</h1>
                     <div className="offer-div d-flex justify-content-around align-items-stretch offers">
                         <div className='offer shadow rounded-2 p-1'>
-                            <img src={book} className='w-100 h-50 rounded-top-1' alt="" />
-                            <div className='text-start h-50 d-flex flex-column justify-content-between'>
+                            <img src={book} className='w-100 rounded-top-1' alt="" />
+                            <div className='div text-start d-flex flex-column justify-content-between'>
                                 <div className="p-2">
-                                    <h5>Lorem, ipsum dolor.</h5>
-                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus eveniet, aut vel modi eaque voluptates qui quaerat mollitia fugit?</span>
+                                    <h5>Bookstore</h5>
+                                    <span>Find soull lifting, edifying, informative and spiritual books here</span>
                                 </div>
-                                <button className="btn w-100 text-white">Lorem, ipsum.</button>
+                                <Link to={'/shop'} className="btn w-100 text-white">View bookstore</Link>
                             </div>
                         </div>
                         <div className='offer shadow rounded-2 p-1'>
-                            <img src={podcast} className='w-100 h-50 rounded-top-1' alt="" />
-                            <div className='text-start h-50 d-flex flex-column justify-content-between'>
+                            <img src={podcast} className='w-100 rounded-top-1' alt="" />
+                            <div className='div text-start d-flex flex-column justify-content-between'>
                                 <div className="p-2">
-                                    <h5>Lorem, ipsum dolor.</h5>
-                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus eveniet, aut vel modi eaque voluptates qui quaerat mollitia fugit?</span>
+                                    <h5>Podcast</h5>
+                                    <span>On this page we shall be investing in Posterity by learning and engaging the principle of a fulfilled life, transforming men and women with the tool of wisdom in stewarding God's resources and living a Legendary life.</span>
                                 </div>
-                                <button className="btn w-100 text-white">Lorem, ipsum.</button>
+                                <button className="btn w-100 text-white">Coming soon</button>
                             </div>
                         </div>
                         <div className='offer shadow rounded-2 p-1'>
-                            <img src={reading} className='w-100 h-50 rounded-top-1' alt="" />
-                            <div className='text-start h-50 d-flex flex-column justify-content-between'>
+                            <img src={reading} className='w-100 rounded-top-1' alt="" />
+                            <div className='div text-start d-flex flex-column justify-content-between'>
                                 <div className="p-2">
-                                    <h5>Lorem, ipsum dolor.</h5>
-                                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus eveniet, aut vel modi eaque voluptates qui quaerat mollitia fugit?</span>
+                                    <h5>Scribing</h5>
+                                    <span>Are you in need of a scribbler? <br /> This page is coming soon</span>
                                 </div>
-                                <button className="btn w-100 text-white">Lorem, ipsum.</button>
+                                <button className="btn w-100 text-white">Coming soon</button>
                             </div>
                         </div>
                         {/* <div><Reading /></div> */}
                     </div>
                 </div>
-                <div className="h-100 about-div about d-flex align-items-center p-5" id='about'>
+                <div className="h-100 about d-flex align-items-center p-5" id='about'>
                     {/* <div className="h-100"> */}
                         {/* <div className='h-100'> */}
                             <img src={hood} className='h-100 w-50 px-4' alt="" />
                         {/* </div> */}
                         <div className="w-50 text-start d-flex flex-column gap-3 px-4 text-light">
-                            <h1 className='text-start'>About Us</h1>
-                            <span className='text-black d-flex flex-column align-items-start justify-content-around gap-3'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit nisi similique excepturi quia? Quibusdam iure alias eveniet commodi itaque laborum quasi provident maxime officia! Soluta corporis quae quo nostrum dignissimos, esse aliquid ipsam voluptatibus consectetur iusto enim recusandae laudantium eveniet pariatur rerum sapiente obcaecati fugit id voluptate quos doloremque magnam! <button className="btn bg-white text-dark">Lorem ipsum</button></span>
+                            <h1 className='text-md-start'>About Us</h1>
+                            <span className='text-black d-flex flex-column align-items-start justify-content-around gap-3'>Elixir is a brand geared towards personal growth and empowerment.
+
+Discover a world of transformation through our skill-building resources, enlightening books, and insightful podcasts. <br /> Elixir is your partner in the journey of unlocking your potential, cultivating meaningful relationships, and achieving financial prosperity. <br />
+
+Join our community and embrace a life of purpose, as we guide you to become a leader in every sphere of your life. <br />
+
+Empower yourself with Elixir. Your journey to a better you starts here.
+
+
+Your journey to a better you is our is our utmost priority!
+{/* <button className="btn bg-white text-dark">Lorem ipsum</button> */}
+</span>
                         </div>
                     {/* </div> */}
                 </div>
@@ -138,7 +149,7 @@ const Landing = () => {
                 <div className='contact py-5' id='contact'>
                     <div className="container px-5">
                         <h1 className='text-center mb-5'>Contact us</h1>
-                        <div className='d-flex align-items-stretch justify-content-around gap-5'>
+                        <div className='div d-flex align-items-stretch justify-content-around gap-5'>
                             {/* <h4>Our socials</h4> */}
                             <form className='d-flex flex-column w-50 justify-content-center gap-4'>
                                 <textarea className='rounded-3 p-2 px-3' name="" id="" cols="50" rows="5" placeholder='Write what you want to tell us here...'></textarea>

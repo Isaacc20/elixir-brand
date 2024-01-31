@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <>
         <footer className='footer p-5'>
-            <div className="container d-flex justify-content-around align-items-start w-100 h-100">
+            <div className="container d-flex justify-content-around align-items-start w-100 h-100 gap-5">
                 <div className='text-start'>
                     <img src={logo} width={'150px'} alt="" />
                 </div>

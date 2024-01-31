@@ -149,8 +149,8 @@ a, button{
     right: 0; */
 }
 
-.footer .footer-div{
-    width: 100vw !important;
+.footer .container{
+    flex-wrap: wrap;
 }
 .footer .links ul, .footer .follow ul{
     list-style-type: none;

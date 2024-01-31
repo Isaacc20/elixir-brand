@@ -54,22 +54,32 @@
     min-width: 250px;
     max-width: 400px;
     overflow: hidden;
-    height: 420px;
+    min-height: fit-content;
+    /* height: fit-content; */
     /* box-shadow: 0px 0px 2px grey; */
 }
+
+.offers .offer .div{
+    height: 55%;
+}
+
+.offers .offer img{
+    height: 45%;
+}
+
 .offers h1{
     color: rgb(31, 12, 68);
 }
 .offers .offer h5{
     color: rgb(31, 12, 68);
 }
-.offers .offer button{
-    background-color: rgb(31, 12, 68);
+.offers .offer .btn{
+    background-color: rgb(31, 12, 68) !important;
 }
-.offers .offer button:hover{
-    background-color: white;
+.offers .offer .btn:hover{
+    background-color: white !important;
     color: rgb(31, 12, 68) !important;
-    border: 1px solid rgb(31, 12, 68);
+    border: 1px solid rgb(31, 12, 68) !important;
     transition: all ease-in-out .3s;
 }
 
@@ -155,6 +165,15 @@
 .contact h1{
     color: rgb(31, 12, 68);
 }
+.contact .div{
+    flex-wrap: wrap;
+}
+.contact form{
+    min-width: 250px;
+}
+.contact .div div p{
+    white-space: nowrap;
+}
 .contact form textarea, .contact form input{
     border: 1px solid rgb(31, 12, 68);
     outline-color: rgb(31, 12, 68);
@@ -198,7 +217,7 @@
         position: absolute;
         top: 0;
     }
-    .about .img, .about div{
-        width: 80vw !important;
+    .about img div{
+        width: 100% !important;
     }
 }
