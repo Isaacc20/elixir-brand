@@ -23,6 +23,7 @@ const Dashboard = () => {
               // User is signed out
               // ...
               console.log('Logged out');
+              navigate('/admin/login')
             }
           });
     }, [])
