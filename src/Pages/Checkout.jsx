@@ -1,8 +1,42 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../Styles/Checkout.css'
 import { MdShoppingCartCheckout } from "react-icons/md";
+import { useParams } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as yup from 'yup'
 
 const Checkout = () => {
+    const [cart, setcart] = useState(JSON.parse(localStorage.getItem('cart')))
+    const [product, setproduct] = useState()
+    const route = useParams()
+    const id = route.id
+
+    useEffect(() => {
+      const find = cart.find(el=>el.id == id)
+      if (find) {
+        setproduct(find)
+      }
+    }, [])
+
+    const formik = useFormik({
+        initialValues: {
+            name: '',
+            phoneNumber: '',
+            alternativeNumber: '',
+            location: ''
+        },
+        validationSchema: yup.object({
+            name: yup.string().required(),
+            phoneNumber: yup.number().required(),
+            alternativeNumber: yup.number().required(),
+            location: yup.string().required()
+        }),
+        onSubmit: (values) => {
+            console.log(values);
+        }
+    })
+    
+
   return (
     <>
         <div className='checkout'>
@@ -16,7 +50,7 @@ const Checkout = () => {
                         <h5>Your details</h5>
                         <div className="d-flex flex-column gap-4 w-100">
                             <label htmlFor="name">
-                                <small>First name first!</small>
+                                <small>Full name</small>
                                 <input className='form-control' name='name' id='name' type="text" placeholder='Your name' />
                             </label>
                             <label htmlFor="number1">
@@ -32,28 +66,13 @@ const Checkout = () => {
                     <div>
                         <h5>Location</h5>
                         <div className="d-flex flex-column gap-4 w-100">
-                            <label htmlFor="state">
-                                <small>Where do you want to receive your order?</small><br />
-                                <select className='form-control dropdown-toggle' name="state" id="state">
-                                    <option value="">State</option>
-                                    <option value="Abia">Abia</option>
-                                    <option value="Adamawa">Adamawa</option>
-                                    <option value="Akwa-ibom">Akwa-ibom</option>
-                                    <option value="Edo">And so on</option>
-                                </select>
-                            </label>
-                            <label htmlFor="city">
-                                <select className='form-control dropdown-toggle' name="city" id="city">
-                                    <option value="">City</option>
-                                    <option value="Umahia">Umahia</option>
-                                    <option value="Yola">Yola</option>
-                                    <option value="Uyo">Uyo</option>
-                                    <option value="Benin">And so on</option>
-                                </select>
+                            <label htmlFor="location">
+                                Where do you want to receive your order?<br />
+                                <input type="text" id="location" className='form-control'/>
                             </label>
                         </div>
                     </div>
-                    <div>
+                    {/* <div>
                         <h5>Payment option</h5>
                         <div className="d-flex flex-column gap-4 w-100">
                             <label htmlFor="checkout" className='form-control'>
@@ -65,16 +84,16 @@ const Checkout = () => {
                                 <input type="radio" name='payment' id='delivery'  />
                                 <span>  Pay on delivery</span><br />
                                 <small>Not refundable or returnable</small>
-                                {/* <select className='form-control dropdown-toggle' name="city" id="city">
+                                <select className='form-control dropdown-toggle' name="city" id="city">
                                     <option value="">City</option>
                                     <option value="Umahia">Umahia</option>
                                     <option value="Yola">Yola</option>
                                     <option value="Uyo">Uyo</option>
                                     <option value="Benin">And so on</option>
-                                </select> */}
+                                </select>
                             </label>
                         </div>
-                    </div>
+                    </div> */}
                     <div><button className="btn">Complete order</button></div>
                 </div>
             </form>
