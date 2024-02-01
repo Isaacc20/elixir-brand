@@ -16,6 +16,10 @@
     margin: 10px !important;
 }
 
+.cart table tr td .name{
+    white-space: nowrap;
+}
+
 .card table tr td input{
     width: 25% !important;
 }
@@ -31,4 +35,10 @@
     color: white;
     box-shadow: 0px 0px 5px grey;
     transition: all ease-in-out .2s;
+}
+
+@media (max-width: 700px) {
+    .cart table{
+        width: 100vw !important;
+    }
 }

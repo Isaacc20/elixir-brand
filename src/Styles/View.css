@@ -8,12 +8,16 @@
 .view .bg h1{
     background-color: rgba(31, 12, 68, 0.484);
 }
+.view .images .image{
+    height: 300px;
+}
 .view .images div{
     width: fit-content !important;
     max-width: 75% !important;
 }
 .view .images div .img{
-    width: 70px !important;
+    width: 50px !important;
+    height: 50px;
     /* margin: 20px; */
 }
 .view .details button{

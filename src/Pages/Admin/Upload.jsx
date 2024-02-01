@@ -3,17 +3,18 @@ import "../../Styles/Admin.css"
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup'
-// import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
-// import { getStorage, ref, uploadString, getDownloadURL, uploadBytes, list, listAll } from "firebase/storage";
-// import { db, imageDb } from '../../Firebase';
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { getStorage, ref, uploadString, getDownloadURL, uploadBytes, list, listAll } from "firebase/storage";
+import { db, imageDb } from '../../Firebase';
 import { ToastContainer, toast } from 'react-toastify';
-// import { v4 } from 'uuid';
-import { frontCover, images, saveBook, saveProduct } from '../../Services/Controls';
+import { v4 } from 'uuid';
+import { frontCover, images } from '../../Services/Controls';
 
 const Add = () => {
     const [type, settype] = useState("")
-    // const [img, setimg] = useState("")
     const [isLoading, setisLoading] = useState(false)
+    const [getFront, setgetFront] = useState(false)
+    const [getImages, setgetImages] = useState(false)
     // const storage = getStorage()
     const navigate = useNavigate()
     const toastId = React.useRef(null)
@@ -45,7 +46,39 @@ const Add = () => {
     //         toast.error("Error uploading image")
     //     }
     // };
-    
+    const addFrontcover = async(e) => {
+        setgetFront(true)
+        frontCover(e).then((res)=>{
+            setgetFront(false);
+            console.log(res);
+            bookFormik.setFieldValue('front', res)
+        }).catch((err)=>{
+            console.log(err);
+        })
+        
+    }
+
+    const addImages = (e) => {
+        setgetImages(true)
+        images(e).then((res)=>{
+            setgetImages(false)
+            console.log(res);
+            bookFormik.setFieldValue('images', res)
+        }).catch(error=>{
+            console.log(error);
+        })
+    }
+
+    const addProductImages = (e) => {
+        setgetImages(true)
+        images(e).then((res)=>{
+            setgetImages(false)
+            console.log(res);
+            productFormik.setFieldValue('images', res)
+        }).catch(error=>{
+            console.log(error);
+        })
+    }
     
 
     const bookFormik = useFormik({
@@ -64,11 +97,10 @@ const Add = () => {
             category: yup.string().trim().required(),
             about: yup.string().trim().required(),
             front: yup.string().required(),
-            images: yup.string(),
+            images: yup.array(),
             price: yup.number().required()
         }),
         onSubmit: (values) => {
-            setisLoading(true)
             saveBook(values)
         }
     })
@@ -83,49 +115,54 @@ const Add = () => {
         validationSchema: yup.object({
             name: yup.string().trim().required(),
             about: yup.string().trim(),
-            images: yup.string().trim().required(),
+            images: yup.array().required(),
             price: yup.number().required()
         }),
         onSubmit: (values) => {
-            setisLoading(true)
             saveProduct(values)
         }
     })
 
-    // const saveBook = async(values) => {
-    //     console.log(values);
-    //     const booksCollection = collection(db, 'Books');
-    //     await addDoc(booksCollection, values).then((res)=>{
-    //         console.log(res);
-    //         setisLoading(false)
-    //         toast.success('Product added')
-            
-    //         setTimeout(() => {
-    //             navigate('/admin/dashboard')
-    //         }, 5000);
-    //     }).catch((err)=>{
-    //         console.log(err);
-    //         setisLoading(false)
-    //         toast.error('Something went wrong')
-    //     })
-    // }
+    const saveBook = async(values) => {
+        console.log(values);
+        if (values.images == '') {
+            toast.warning('Wait for the loading images')
+        } else {
+            setisLoading(true)
+            const booksCollection = collection(db, 'Books');
+            await addDoc(booksCollection, values).then((res)=>{
+                console.log(res);
+                setisLoading(false)
+                toast.success('Product added')
+                settype("")
+            }).catch((err)=>{
+                console.log(err);
+                setisLoading(false)
+                toast.error('Something went wrong')
+            })
+        }
+        
+    }
 
-    // const saveProduct = async(values) => {
-    //     console.log(values);
-    //     const productsCollection = collection(db, 'Products');
-    //     await addDoc(productsCollection, values).then((res)=>{
-    //         console.log(res);
-    //         setisLoading(false)
-    //         toast.success("Product added")
-    //         setTimeout(() => {
-    //             navigate('/admin/dashboard')
-    //         }, 5000);
-    //     }).catch((err)=>{
-    //         console.log(err);
-    //         setisLoading(false)
-    //         toast.error('Something went wrong')
-    //     })
-    // }
+    const saveProduct = async(values) => {
+        console.log(values);
+        if (getImages) {
+            toast.warning("Wait for the loading image(s)")
+        } else {
+            setisLoading(true)
+            const productsCollection = collection(db, 'Products');
+            await addDoc(productsCollection, values).then((res)=>{
+                console.log(res);
+                setisLoading(false)
+                toast.success("Product added")
+                settype("")
+            }).catch((err)=>{
+                console.log(err);
+                setisLoading(false)
+                toast.error('Something went wrong')
+            })
+        }
+    }
   return (
     <>
         <div className="login">
@@ -159,19 +196,19 @@ const Add = () => {
                                     <textarea type="text" name='about' id='about'  cols={60} rows={3} onChange={bookFormik.handleChange} className={bookFormik.errors.about? "is-invalid form-control w-100": "form-control w-100"} />
                                     <small className='text-danger fst-italic'>{bookFormik.errors.about && bookFormik.errors.about}</small>
                                 </label>
-                                <label htmlFor="front">Front cover image
-                                    <input type="file" accept='image/*' name='front' id='front' onChange={frontCover} className={bookFormik.errors.front? "is-invalid form-control w-100": "form-control w-100"} />
+                                <label htmlFor="front"><div className="d-flex">Front cover image {getFront && <div className='spinner-border spinner-border-sm'></div>}</div>
+                                    <input type="file" accept='image/*' name='front' id='front' onChange={addFrontcover} className={bookFormik.errors.front? "is-invalid form-control w-100": "form-control w-100"} />
                                     <small className='text-danger fst-italic'>{bookFormik.errors.front && bookFormik.errors.front}</small>
                                 </label>
-                                <label htmlFor="images">Other images
-                                    <input type="file" accept='image/*' multiple name='images' id='images' onChange={images} className={bookFormik.errors.images? "is-invalid form-control w-100": "form-control w-100"} />
+                                <label htmlFor="images"><div className="d-flex">Other images {getImages && <div className='spinner-border spinner-border-sm'></div>}</div>
+                                    <input type="file" accept='image/*' multiple name='images' id='images' onChange={addImages} className={bookFormik.errors.images? "is-invalid form-control w-100": "form-control w-100"} />
                                     <small className='text-danger fst-italic'>{bookFormik.errors.images && bookFormik.errors.images}</small>
                                 </label>
                                 <label htmlFor="price">Price ₦
                                     <input type="number" name='price' id='price' onChange={bookFormik.handleChange} className={bookFormik.errors.price? "is-invalid form-control w-100": "form-control w-100"} />
                                     <small className='text-danger fst-italic'>{bookFormik.errors.price && bookFormik.errors.price}</small>
                                 </label>
-                                <button type='submit' disabled className="text-decoration-none text-center form-control">Continue</button>
+                                <button type='submit' className="text-decoration-none text-center form-control">Continue</button>
                             </form>: type == "item"?
                             <form onSubmit={productFormik.handleSubmit} className='d-flex flex-column gap-2'>
                                 <label htmlFor="name">Name
@@ -182,15 +219,15 @@ const Add = () => {
                                     <textarea type="text" name='about' id='about' onChange={productFormik.handleChange} className={productFormik.errors.about? "is-invalid form-control w-100": "form-control w-100"} cols={60} rows={3} />
                                     <small className='text-danger ftw-italic'>{productFormik.errors.about && productFormik.errors.about}</small>
                                 </label>
-                                <label htmlFor="images">Images
-                                    <input type="file" accept='image/*' multiple name='images' onChange={productFormik.handleChange} id='images' className={productFormik.errors.images? "is-invalid form-control w-100": "form-control w-100"} />
+                                <label htmlFor="images"><div className="d-flex">Images {getImages && <div className='spinner-border spinner-border-sm'></div>}</div>
+                                    <input type="file" accept='image/*' multiple name='images' onChange={addProductImages} id='images' className={productFormik.errors.images? "is-invalid form-control w-100": "form-control w-100"} />
                                     <small className='text-danger ftw-italic'>{productFormik.errors.images && productFormik.errors.images}</small>
                                 </label>
                                 <label htmlFor="price">Price ₦
                                     <input type="number" name='price' id='price' onChange={productFormik.handleChange} className={productFormik.errors.price? "is-invalid form-control w-100": "form-control w-100"} />
                                     <small className='text-danger ftw-italic'>{productFormik.errors.price && productFormik.errors.price}</small>
                                 </label>
-                                <button type='submit' className={productFormik.errors? "disabled text-decoration-none text-center form-control": "text-decoration-none text-center form-control"}>Continue</button>
+                                <button type='submit' className="text-decoration-none text-center form-control" >Continue</button>
                             </form>:
                             <div>
                                 <p>Kindly select product type</p>

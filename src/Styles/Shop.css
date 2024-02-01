@@ -36,6 +36,11 @@
     color: #532768;
     transition: all ease-in-out .2s !important;
 }
+.shop .loader{
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.205);
+}
 
 
 /* SIDENAV */
@@ -82,11 +87,15 @@
     display: block;
 }
 .display .cards .img{
-    background-image: url('../assets/brand-cards.jpg');
+    /* background-image: url('../assets/brand-cards.jpg');
     background-position: center;
     background-size: contain;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
     position: relative;
+}
+.display .cards .img img{
+    width: 100%;
+    height: 150px;
 }
 .display .cards .save{
     border: none;
