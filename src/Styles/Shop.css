@@ -40,6 +40,10 @@
     height: 100vh;
     width: 100vw;
     background-color: rgba(0, 0, 0, 0.205);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
 
@@ -138,6 +142,6 @@
     }
     .display .card-div .cards{
         width: 170px;
-        height: 200px;
+        /* height: 200px; */
     }
 }
