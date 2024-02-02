@@ -14,6 +14,7 @@ import { add } from "../Redux/cartSlice";
 const Display = () => {
   const { isFetchingBooks, books, fetchingBooksFailed } = useSelector((state)=>state.BookSlice)
   const { isFetchingProducts, products, fetchingProductsFailed } = useSelector((state)=>state.productSlice)
+  // const [addCart, setaddCart] = useState()
   const cart = JSON.parse(localStorage.getItem('cart')) || []
   const dispatch =  useDispatch()
   const navigate = useNavigate()
@@ -27,9 +28,38 @@ const Display = () => {
     if (book) {
       cart.push(book)
       localStorage.setItem('cart', JSON.stringify(cart))
+      // setaddCart(
+      //   <button onClick={()=>navigate('/cart')} className="btn download text-white" style={{whiteSpace: 'nowrap'}}>View in cart</button>
+      // )
     } else if (product) {
       cart.push(product)
       localStorage.setItem('cart', JSON.stringify(cart))
+      // setaddCart(
+      //   <button onClick={()=>navigate('/cart')} className="btn download text-white" style={{whiteSpace: 'nowrap'}}>View in cart</button>
+      // )
+    }
+  }
+
+  const find = (val) => {
+    let get = cart.find(el=>el.id == val.id)
+    if (get) {
+      // setaddCart(
+      //   <button onClick={()=>navigate('/cart')} className="btn download text-white" style={{whiteSpace: 'nowrap'}}>View in cart</button>
+      // )
+      return (
+        <button onClick={()=>navigate('/cart')} className="btn download text-white" style={{whiteSpace: 'nowrap'}}>View in cart</button>
+      )
+    } else {
+      // setaddCart(
+      //   <button onClick={(e)=>addOne(e, val.id)} className="btn download text-white">
+      //     <FaCartPlus />
+      //   </button>
+      // )
+      return (
+        <button onClick={(e)=>addOne(e, val.id)} className="btn download text-white">
+          <FaCartPlus />
+        </button>
+      )
     }
   }
   
@@ -50,9 +80,10 @@ const Display = () => {
                   <span className="px-2 w-100 text-start">{el.data.author}</span>
                   <div className="d-flex align-items-end justify-content-between w-100 p-1">
                     <small className="px-2 w-100 text-start">$ {el.data.price}</small>
-                    <button onClick={(e)=>addOne(e, el.id)} className="btn download text-white">
-                      <FaCartPlus />
-                    </button>
+                    {
+                      find(el)
+                    }
+                    
                   </div>
                 </Link>
               ))
@@ -67,9 +98,9 @@ const Display = () => {
                   {/* <span className="px-2 w-100 text-start">{el.data.author}</span> */}
                   <div className="d-flex align-items-end justify-content-between w-100 p-1">
                     <small className="px-2 w-100 text-start">$ {el.data.price}</small>
-                    <button onClick={(e)=>addOne(e, el.id)} className="btn download text-white">
-                      <FaCartPlus />
-                    </button>
+                    {
+                      find(el)
+                    }
                   </div>
                 </Link>
               ))

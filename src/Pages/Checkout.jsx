@@ -1,49 +1,127 @@
 import React, { useEffect, useState } from 'react'
 import '../Styles/Checkout.css'
 import { MdShoppingCartCheckout } from "react-icons/md";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup'
+import { useDispatch } from 'react-redux';
+import { isSendingOrder, sentOrder, failedSendingOrder } from "../Redux/OrderSlice";
+import { addDoc, collection, doc, getDocs } from 'firebase/firestore';
+import { db } from '../Firebase';
+import { ToastContainer, toast } from 'react-toastify';
+import { PaystackButton } from 'react-paystack';
 
 const Checkout = () => {
     const [cart, setcart] = useState(JSON.parse(localStorage.getItem('cart')))
     const [product, setproduct] = useState()
+    const [amount, setamount] = useState((0 + '00'))
+    const [allPrices, setallPrices] = useState()
+    const [allCopy, setallCopy] = useState()
+    const [isLoading, setisLoading] = useState(false)
+    const publicKey = "pk_test_b25929938288a8363832f759f9d5460cffedd2e5"
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
     const route = useParams()
     const id = route.id
+
+    const componentProps = {
+        email: formik.values.email,
+        amount,
+        metadata: {
+          name: formik.values.name,
+          phone: formik.values.number1,
+        },
+        publicKey,
+        text: "Pay Now",
+        onSuccess: () =>
+          alert("Thanks for doing business with us! Come back soon!!"),
+        onClose: () => alert("Wait! You need this oil, don't go!!!!"),
+      }
 
     useEffect(() => {
       const find = cart.find(el=>el.id == id)
       if (find) {
-        setproduct(find)
+        setproduct([find])
+      } else if (id == 'all') {
+        setproduct(cart)
+      } else {
+        navigate('/notfound')
       }
     }, [])
+
+    useEffect(() => {
+      if (product && product.length > 0) {
+        setamount(+(0 + '00'))
+        let prices = []
+        let sum = 0
+        product.forEach((el, i) => {
+            el.copies = 1
+
+            let price = Number(el.data.price) * Number(el.copies)
+            console.log(el.data.price, el.copies, price);
+            prices = [...prices, price]
+            // console.log(price, prices);
+        });
+        for (let i = 0; i < prices.length; i++) {
+            sum += prices[i];
+        }
+        console.log(sum, prices);
+        setallPrices(prices)
+        setamount(+(sum + '00'))
+      }
+    }, [product])
+    
 
     const formik = useFormik({
         initialValues: {
             name: '',
-            phoneNumber: '',
-            alternativeNumber: '',
-            location: ''
+            email: '',
+            number1: '',
+            number2: '',
+            location: '',
+            products: product
         },
         validationSchema: yup.object({
-            name: yup.string().required(),
-            phoneNumber: yup.number().required(),
-            alternativeNumber: yup.number().required(),
-            location: yup.string().required()
+            name: yup.string().trim().required(),
+            email: yup.string().trim().required(),
+            number1: yup.number().required(),
+            number2: yup.number().required(),
+            location: yup.string().trim().required(),
+            products: yup.array()
         }),
         onSubmit: (values) => {
             console.log(values);
+            placeOrder(values)
         }
     })
+    
+    const placeOrder = async(values)=>{
+        setisLoading(true)
+
+        dispatch(isSendingOrder())
+        const orderCollection = collection(db, 'Orders');
+        await addDoc(orderCollection, values).then((res)=>{
+            console.log(res);
+            // dispatch(sentOrder(res))
+            setisLoading(false)
+            toast.success('Order successful')
+        }).catch((err)=>{
+            console.log(err);
+            dispatch(failedSendingOrder(err.message))
+            setisLoading(false)
+            toast.error('Something went wrong')
+        })
+    }
     
 
   return (
     <>
         <div className='checkout'>
+            <ToastContainer />
             <div className="bg">
                 <h1 className='text-white h-100 w-100 d-flex align-items-center justify-content-center gap-4'><MdShoppingCartCheckout /> Checkout</h1>
             </div>
-            <form action="" className='container'>
+            <form action="" onSubmit={formik.handleSubmit} className='container'>
                 <div className='d-flex flex-column align-items-stretch gap-4 py-5 w-75 container'>
                     <small>#To complete your order, we'll need a few information about you <br />Do well to fill the following form accordingly !</small>
                     <div>
@@ -51,15 +129,23 @@ const Checkout = () => {
                         <div className="d-flex flex-column gap-4 w-100">
                             <label htmlFor="name">
                                 <small>Full name</small>
-                                <input className='form-control' name='name' id='name' type="text" placeholder='Your name' />
+                                <input onChange={formik.handleChange} className={formik.errors.name? 'is-invalid form-control': 'form-control'} name='name' id='name' type="text" placeholder='Your name' />
+                                {formik.errors.name && <small className='text-danger fst-italic'>{formik.errors.name}</small>}
+                            </label>
+                            <label htmlFor="email">
+                                <small>Email</small>
+                                <input onChange={formik.handleChange} className={formik.errors.emaik? 'is-invalid form-control': 'form-control'} name='email' id='email' type="email" placeholder='Your email address' />
+                                {formik.errors.emaik && <small className='text-danger fst-italic'>{formik.errors.emaik}</small>}
                             </label>
                             <label htmlFor="number1">
                                 <small>Kindly provide your active phone number!</small>
-                                <input className='form-control' name='number1' id='number1' type="number" placeholder='Phone number' />
+                                <input onChange={formik.handleChange} className={formik.errors.number1? 'is-invalid form-control': 'form-control'} name='number1' id='number1' type="number" placeholder='Phone number' />
+                                {formik.errors.number1 && <small className='text-danger fst-italic'>{formik.errors.number1}</small>}
                             </label>
                             <label htmlFor="number2">
                                 <small>Just incase we couldn't reach you through the first phone number!</small>
-                                <input className='form-control' name='number2' id='number2' type="number" placeholder='Alternative phone number' />
+                                <input onChange={formik.handleChange} className={formik.errors.number2? 'is-invalid form-control': 'form-control'} name='number2' id='number2' type="number" placeholder='Alternative phone number' />
+                                {formik.errors.number2 && <small className='text-danger fst-italic'>{formik.errors.number2}</small>}
                             </label>
                         </div>
                     </div>
@@ -68,9 +154,50 @@ const Checkout = () => {
                         <div className="d-flex flex-column gap-4 w-100">
                             <label htmlFor="location">
                                 Where do you want to receive your order?<br />
-                                <input type="text" id="location" className='form-control'/>
+                                <input onChange={formik.handleChange} type="text" id="location" name='location' className={formik.errors.location? 'is-invalid form-control': 'form-control'}/>
+                                {formik.errors.location && <small className='text-danger fst-italic'>{formik.errors.location}</small>}
                             </label>
                         </div>
+                    </div>
+                    <div>
+                        <h5>Products</h5>
+                        <div className="d-flex flex-column gap-4 w-100">
+                            {
+                                (product && product.length > 0) &&
+                                product.map((el, i)=>(
+                                    <label key={i} htmlFor={`product${i}`}>
+                                        How many copies of &nbsp; {el.data.name || el.data.title}<br />
+                                        <input type="number" id={`product${i}`} name={`product${i}`} 
+                                        onChange={
+                                            (e)=>{
+                                                let sum = 0
+                                                let prices = [...allPrices]
+                                                let copy = []
+                                                console.log(prices);
+                                                let price = +el.data.price * +e.target.value
+                                                console.log((price, prices));
+                                                let find = prices.findIndex(element=>element == el.data.price)
+                                                prices.splice(find, 1, price)
+                                                for (let i = 0; i < prices.length; i++) {
+                                                    sum += prices[i];
+                                                    copy = [...copy, e.target.value]
+                                                }
+                                                setallCopy(copy)
+                                                setamount(+(sum + '00'))
+                                                let prod = product;
+                                                prod[i].copies = e.target.value
+                                                setproduct(prod)
+                                                formik.setFieldValue('products', product)
+                                            }}
+                                             className='form-control' defaultValue={1}/>
+                                        <span>Amount: {+el.data.price * +el.copies}</span>
+                                    </label>
+                                ))
+                            }
+                        </div>
+                    </div>
+                    <div>
+                        <h5>Total amount: ₦ {amount}</h5>
                     </div>
                     {/* <div>
                         <h5>Payment option</h5>
@@ -94,7 +221,7 @@ const Checkout = () => {
                             </label>
                         </div>
                     </div> */}
-                    <div><button className="btn">Complete order</button></div>
+                    <div><PaystackButton className="paystack-button btn" type='submit' {...componentProps} /></div>
                 </div>
             </form>
         </div>
