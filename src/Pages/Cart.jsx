@@ -6,7 +6,7 @@ import { BsCart } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Cart = () => {
-    const [cart, setcart] = useState(JSON.parse(localStorage.getItem('cart')))
+    const [cart, setcart] = useState(JSON.parse(localStorage.getItem('cart')) || [])
     const [amount, setamount] = useState(0)
     const dispatch = useDispatch()
 
@@ -30,39 +30,39 @@ const Cart = () => {
                 <h1 className='text-white h-100 w-100 d-flex align-items-center justify-content-center gap-3'><BsCart /> Cart</h1>
             </div>
             
+                <table className='w-100 container my-5 table'>
                     {
                         (cart && cart.length > 0) ?
-                        <table className='w-100 container my-5 table'>
                             <tbody>
-                            {
-                                cart.map((el, i)=>(
-                                    <tr key={i} className='d-flex align-items-stretch'>
-                                        <td className="w-25 d-flex align-items-center"><img src={el.data.front || el.data.images[Math.floor(Math.random() * el.data.images.length)]} className='rounded-2' alt="" height={'150px'} /></td>
-                                        <td className="w-25 d-flex flex-column align-items-center justify-content-center">
-                                            <Link to={`/view/${el.id}`} className="name fw-bold text-decoration-none text-dark">{el.data.name || el.data.title}</Link><br />
-                                            { el.data.author && <span className="">{el.data.author}</span> }
-                                        </td>
-                                        {/* <td className="w-25 d-flex align-items-center"><button className='btn'>-</button><input className='w-25' type="number" name="" id="" /><button className='btn'>+</button></td> */}
-                                        <td className="w-25 d-flex align-items-center">₦ {el.data.price}</td>
-                                        <td className="w-25 d-flex align-items-center gap-3">
-                                            <Link to={`/checkout/${el.id}`} className="btn">Checkout</Link>
-                                            <button className="btn" onClick={(e)=>remove(el.id)}> ⨉ </button>
-                                        </td>
-                                    </tr>
-                                ))
-                            }
-                            <tr className='d-flex align-items-stretch'>
-                                        <td className="w-25 d-flex align-items-center"></td>
-                                        <td className="w-25 d-flex flex-column align-items-center justify-content-center"></td>
-                                        <td className="w-25 d-flex align-items-center"></td>
-                                        <td className="w-25 d-flex align-items-center"></td>
-                                        <td className="w-25 d-flex align-items-center gap-3">
-                                            <Link to={'/checkout/all'} className="btn">Checkout all</Link>
-                                        </td>
-                                    </tr>
-                            </tbody>
-                        </table>: <tr style={{minHeight: '60vh'}}><td className='h4 d-flex align-items-center justify-content-center'>Nothing here</td></tr>
+                                {
+                                    cart.map((el, i)=>(
+                                        <tr key={i} className='d-flex align-items-stretch'>
+                                            <td className="w-25 d-flex align-items-center"><img src={el.data.front || el.data.images[Math.floor(Math.random() * el.data.images.length)]} className='rounded-2' alt="" height={'150px'} /></td>
+                                            <td className="w-25 d-flex flex-column align-items-center justify-content-center">
+                                                <Link to={`/view/${el.id}`} className="name fw-bold text-decoration-none text-dark">{el.data.name || el.data.title}</Link><br />
+                                                { el.data.author && <span className="">{el.data.author}</span> }
+                                            </td>
+                                            {/* <td className="w-25 d-flex align-items-center"><button className='btn'>-</button><input className='w-25' type="number" name="" id="" /><button className='btn'>+</button></td> */}
+                                            <td className="w-25 d-flex align-items-center">₦ {el.data.price}</td>
+                                            <td className="w-25 d-flex align-items-center gap-3">
+                                                <Link to={`/checkout/${el.id}`} className="btn">Checkout</Link>
+                                                <button className="btn" onClick={(e)=>remove(el.id)}> ⨉ </button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                                <tr className='d-flex align-items-stretch'>
+                                    <td className="w-25 d-flex align-items-center"></td>
+                                    <td className="w-25 d-flex flex-column align-items-center justify-content-center"></td>
+                                    <td className="w-25 d-flex align-items-center"></td>
+                                    <td className="w-25 d-flex align-items-center"></td>
+                                    <td className="w-25 d-flex align-items-center gap-3">
+                                        <Link to={'/checkout/all'} className="btn">Checkout all</Link>
+                                    </td>
+                                </tr>
+                            </tbody>: <tbody><tr style={{minHeight: '60vh'}}><td className='h4 d-flex align-items-center justify-content-center'>Nothing here</td></tr></tbody>
                     }
+                </table>
         </div>
     </>
   )

@@ -9,68 +9,31 @@ import { isSendingOrder, sentOrder, failedSendingOrder } from "../Redux/OrderSli
 import { addDoc, collection, doc, getDocs } from 'firebase/firestore';
 import { db } from '../Firebase';
 import { ToastContainer, toast } from 'react-toastify';
-import { PaystackButton } from 'react-paystack';
+import { PaystackConsumer, usePaystackPayment } from 'react-paystack';
 
 const Checkout = () => {
-    const [cart, setcart] = useState(JSON.parse(localStorage.getItem('cart')))
+    const [cart, setcart] = useState(JSON.parse(localStorage.getItem('cart')) || [])
     const [product, setproduct] = useState()
-    const [amount, setamount] = useState((0 + '00'))
+    const [amount, setamount] = useState(0)
     const [allPrices, setallPrices] = useState()
-    const [allCopy, setallCopy] = useState()
     const [isLoading, setisLoading] = useState(false)
-    const publicKey = "pk_test_b25929938288a8363832f759f9d5460cffedd2e5"
+    const [paymentSuccess, setpaymentSuccess] = useState(false)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const route = useParams()
     const id = route.id
+    const toastId = React.useRef(null)
 
-    const componentProps = {
-        email: formik.values.email,
-        amount,
-        metadata: {
-          name: formik.values.name,
-          phone: formik.values.number1,
-        },
-        publicKey,
-        text: "Pay Now",
-        onSuccess: () =>
-          alert("Thanks for doing business with us! Come back soon!!"),
-        onClose: () => alert("Wait! You need this oil, don't go!!!!"),
-      }
 
+    const load = () => toastId.current = toast.loading('Sending request')
     useEffect(() => {
-      const find = cart.find(el=>el.id == id)
-      if (find) {
-        setproduct([find])
-      } else if (id == 'all') {
-        setproduct(cart)
-      } else {
-        navigate('/notfound')
+        console.log(isLoading);
+      if (isLoading) {
+        load()
+      }else{
+        toast.dismiss(toastId.current);
       }
-    }, [])
-
-    useEffect(() => {
-      if (product && product.length > 0) {
-        setamount(+(0 + '00'))
-        let prices = []
-        let sum = 0
-        product.forEach((el, i) => {
-            el.copies = 1
-
-            let price = Number(el.data.price) * Number(el.copies)
-            console.log(el.data.price, el.copies, price);
-            prices = [...prices, price]
-            // console.log(price, prices);
-        });
-        for (let i = 0; i < prices.length; i++) {
-            sum += prices[i];
-        }
-        console.log(sum, prices);
-        setallPrices(prices)
-        setamount(+(sum + '00'))
-      }
-    }, [product])
-    
+    }, [isLoading])
 
     const formik = useFormik({
         initialValues: {
@@ -91,26 +54,106 @@ const Checkout = () => {
         }),
         onSubmit: (values) => {
             console.log(values);
-            placeOrder(values)
+            // placeOrder(values)
+                initializePayment(handleSuccess, handleClose)
         }
     })
+
+    const config = {
+        reference: (new Date()).getTime().toString(),
+        email: formik.values.email,
+        amount: amount*100,
+        publicKey: 'pk_test_b25929938288a8363832f759f9d5460cffedd2e5',
+    };
+    const initializePayment = usePaystackPayment(config)
+
+    const handleSuccess = (reference) => {
+        // Implementation for whatever you want to do with reference and after success call.
+        setpaymentSuccess(true)
+        console.log(reference);
+      };
+
+    const handleClose = (reference) => {
+    // Implementation for whatever you want to do with reference and after success call.
+    console.log(reference);
+    };
+
+    const componentProps = {
+        ...config,
+        text: 'Paystack Button Implementation',
+        onSuccess: (reference) => handleSuccess(reference),
+        onClose: handleClose
+    };
+
+    useEffect(() => {
+        toast.dismiss(toastId.current);
+       if (cart && cart.length > 0) {
+        console.log(cart);
+        const find = cart.find(el=>el.id == id)
+        if (find) {
+          setproduct([find])
+        } else if (id == 'all') {
+          setproduct(cart)
+        } else {
+          navigate('/notfound')
+        }
+       } else {
+        navigate('/notfound')
+       }
+    }, [])
+
+    useEffect(() => {
+      if (product && product.length > 0) {
+        setamount(0)
+        let prices = []
+        let sum = 0
+        product.forEach((el, i) => {
+            el.copies = 1
+
+            let price = Number(el.data.price) * Number(el.copies)
+            console.log(el.data.price, el.copies, price);
+            prices = [...prices, price]
+            // console.log(price, prices);
+        });
+        for (let i = 0; i < prices.length; i++) {
+            sum += prices[i];
+        }
+        console.log(sum, prices);
+        setallPrices(prices)
+        setamount(sum)
+      }
+    }, [product])
+
+    useEffect(() => {
+        toast.success('Payment successful')
+        console.log('Payment successful');
+        placeOrder(formik.values)
+    }, [paymentSuccess])
+    
+
     
     const placeOrder = async(values)=>{
-        setisLoading(true)
-
-        dispatch(isSendingOrder())
-        const orderCollection = collection(db, 'Orders');
-        await addDoc(orderCollection, values).then((res)=>{
-            console.log(res);
-            // dispatch(sentOrder(res))
+        console.log(values);
+        try {
+            setisLoading(true)
+            // dispatch(isSendingOrder())
+            const orderCollection = collection(db, 'Orders');
+            await addDoc(orderCollection, values).then((res)=>{
+                console.log(res);
+                // dispatch(sentOrder(res))
+                setisLoading(false)
+                toast.success('Order successful')
+            }).catch((err)=>{
+                console.log(err);
+                // dispatch(failedSendingOrder(err.message))
+                setisLoading(false)
+                toast.error('Something went wrong')
+            })
+        } catch (error) {
+            console.log(error);
             setisLoading(false)
-            toast.success('Order successful')
-        }).catch((err)=>{
-            console.log(err);
-            dispatch(failedSendingOrder(err.message))
-            setisLoading(false)
-            toast.error('Something went wrong')
-        })
+            // toast.dismiss(toastId.current)
+        }
     }
     
 
@@ -182,8 +225,7 @@ const Checkout = () => {
                                                     sum += prices[i];
                                                     copy = [...copy, e.target.value]
                                                 }
-                                                setallCopy(copy)
-                                                setamount(+(sum + '00'))
+                                                setamount(sum)
                                                 let prod = product;
                                                 prod[i].copies = e.target.value
                                                 setproduct(prod)
@@ -221,7 +263,11 @@ const Checkout = () => {
                             </label>
                         </div>
                     </div> */}
-                    <div><PaystackButton className="paystack-button btn" type='submit' {...componentProps} /></div>
+                    <div>
+                        {/* <PaystackConsumer {...componentProps} >
+                        </PaystackConsumer> */}
+                        <button className="btn" type='submit' >Complete order</button>
+                    </div>
                 </div>
             </form>
         </div>
