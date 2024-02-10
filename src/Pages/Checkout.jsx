@@ -42,7 +42,7 @@ const Checkout = () => {
             number1: '',
             number2: '',
             location: '',
-            products: product
+            products: ''
         },
         validationSchema: yup.object({
             name: yup.string().trim().required(),
@@ -55,7 +55,9 @@ const Checkout = () => {
         onSubmit: (values) => {
             console.log(values);
             // placeOrder(values)
-                initializePayment(handleSuccess, handleClose)
+            // initializePayment(handleSuccess, handleClose)
+            // usePaystackPayment(config)
+            placeOrder(values)
         }
     })
 
@@ -88,8 +90,8 @@ const Checkout = () => {
     useEffect(() => {
         toast.dismiss(toastId.current);
        if (cart && cart.length > 0) {
-        console.log(cart);
-        const find = cart.find(el=>el.id == id)
+            console.log(cart);
+            const find = cart.find(el=>el.id == id)
         if (find) {
           setproduct([find])
         } else if (id == 'all') {
@@ -113,6 +115,9 @@ const Checkout = () => {
             let price = Number(el.data.price) * Number(el.copies)
             console.log(el.data.price, el.copies, price);
             prices = [...prices, price]
+            el.price = price
+            console.log(el);
+            formik.setFieldValue('products', [el])
             // console.log(price, prices);
         });
         for (let i = 0; i < prices.length; i++) {
@@ -125,9 +130,11 @@ const Checkout = () => {
     }, [product])
 
     useEffect(() => {
-        toast.success('Payment successful')
-        console.log('Payment successful');
-        placeOrder(formik.values)
+        if (paymentSuccess == true) {
+            toast.success('Payment successful')
+            console.log('Payment successful');
+            placeOrder(formik.values)
+        }
     }, [paymentSuccess])
     
 
@@ -143,6 +150,9 @@ const Checkout = () => {
                 // dispatch(sentOrder(res))
                 setisLoading(false)
                 toast.success('Order successful')
+                setcart([])
+                localStorage.setItem('cart', JSON.stringify([]))
+                navigate('/complete')
             }).catch((err)=>{
                 console.log(err);
                 // dispatch(failedSendingOrder(err.message))
@@ -152,11 +162,15 @@ const Checkout = () => {
         } catch (error) {
             console.log(error);
             setisLoading(false)
+            toast.error('Something went wrong')
+            setTimeout(() => {
+                navigate(-1)
+            }, 5000);
             // toast.dismiss(toastId.current)
         }
     }
     
-
+console.log(formik.errors);
   return (
     <>
         <div className='checkout'>
@@ -177,8 +191,8 @@ const Checkout = () => {
                             </label>
                             <label htmlFor="email">
                                 <small>Email</small>
-                                <input onChange={formik.handleChange} className={formik.errors.emaik? 'is-invalid form-control': 'form-control'} name='email' id='email' type="email" placeholder='Your email address' />
-                                {formik.errors.emaik && <small className='text-danger fst-italic'>{formik.errors.emaik}</small>}
+                                <input onChange={formik.handleChange} className={formik.errors.email? 'is-invalid form-control': 'form-control'} name='email' id='email' type="email" placeholder='Your email address' />
+                                {formik.errors.email && <small className='text-danger fst-italic'>{formik.errors.email}</small>}
                             </label>
                             <label htmlFor="number1">
                                 <small>Kindly provide your active phone number!</small>
@@ -266,7 +280,7 @@ const Checkout = () => {
                     <div>
                         {/* <PaystackConsumer {...componentProps} >
                         </PaystackConsumer> */}
-                        <button className="btn" type='submit' >Complete order</button>
+                        <button className="btn" type='submit' disabled={(amount == 0 || amount == null)? true: false} >Complete order</button>
                     </div>
                 </div>
             </form>

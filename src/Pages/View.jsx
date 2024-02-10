@@ -3,15 +3,17 @@ import '../Styles/View.css'
 import img from '../assets/hood_fv.jpg'
 import back from '../assets/hood_bv.jpg'
 import hood from '../assets/brand_hood.jpg'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 const View = () => {
     const { isFetchingBooks, books, fetchingBooksFailed } = useSelector((state)=>state.BookSlice)
     const { isFetchingProducts, products, fetchingProductsFailed } = useSelector((state)=>state.productSlice)
-    const route = useParams()
-    const [view, setview] = useState('')
     const [oneProduct, setoneProduct] = useState(null)
+    const [view, setview] = useState('')
+    const cart = JSON.parse(localStorage.getItem('cart')) || []
+    const route = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
         console.log(isFetchingBooks, books, fetchingBooksFailed);
@@ -27,6 +29,21 @@ const View = () => {
         }
       }
     }, [])
+
+    const find = (val) => {
+        let get = cart.find(el=>el.id == val)
+        if (get) {
+        return (
+            <button onClick={(e)=>{e.preventDefault;navigate('/cart')}} className="btn download" style={{whiteSpace: 'nowrap'}}>View in cart</button>
+        )
+        } else {
+        return (
+            <button onClick={(e)=>addOne(e, val)} className="btn download text-white">
+            <FaCartPlus />
+            </button>
+        )
+        }
+    }
     
   return (
     <>
@@ -62,7 +79,9 @@ const View = () => {
                     <p>{oneProduct.data.author && oneProduct.data.author}</p>
                     <span>{oneProduct.data.about}</span>
                     <p>₦ {oneProduct.data.price}</p>
-                    <button className="btn">Add to cart</button>
+                    {
+                        find(oneProduct.id)
+                    }
                 </div>
             </div>
             }

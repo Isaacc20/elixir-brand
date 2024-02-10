@@ -16,12 +16,12 @@
     align-items: start;
     gap: 50px;
 }
-.top .home h1 button{
+.top .home h1 .btn{
     background-color: transparent;
     border: 1px solid white;
     padding: 10px 20px;
 }
-.top .home h1 button:hover{
+.top .home h1 .btn:hover{
     background-color: rgb(31, 12, 68);
     border: 1px solid transparent;
     box-shadow: 0px 0px 7px white;

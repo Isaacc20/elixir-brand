@@ -40,22 +40,32 @@
     height: 100vh;
     width: 100vw;
     background-color: rgba(0, 0, 0, 0.205);
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.shop .loader .spinner-grow{
+    background-color: #532768;
+    height: 1rem;
+    width: 1rem;
 }
 
 
 /* SIDENAV */
-.sidenav{
-    /* border-right: 1px solid black; */
+/* .sidenav{
+    border-right: 1px solid black;
     box-shadow: 0px 2px 4px gray;
     min-width: fit-content !important;
-    /* background-color: #2d365f39; */
-}
+    background-color: #2d365f39;
+} */
 /* .sidenav button:hover, .sidenav label:hover{
     background-color: #2d365f39;
 } */
-.sidenav input{
+/* .sidenav input{
     accent-color: #2d2d2d;
-}
+} */
 
 /* DISPLAY */
 .display .card-div{
@@ -64,10 +74,30 @@
     /* justify-content: space-evenly !important; */
     /* gap: 20px; */
 }
+.display .toggle-div{
+    position: sticky;
+    top: 20px;
+    right: 0;
+    left: 0;
+}
+.display .toggle{
+    /* background-color: #53276847; */
+    border: 1px solid rebeccapurple;
+    overflow: hidden;
+}
+.display .toggle .color{
+    background-color: #532768;
+    z-index: -1;
+    transition: all ease-in-out 1s !important;
+}
+.display .toggle a{
+    color: #532768;
+    text-shadow: 0px 0px 5px white;
+}
 .display .cards{
-    height: 270px;
+    height: 270px !important;
     width: 200px;
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 .display .cards:hover{
     box-shadow: 0px 8px 10px rgb(159, 158, 158) !important;
@@ -137,7 +167,8 @@
         gap: 20px !important;
     }
     .display .card-div .cards{
-        width: 170px;
+        width: 40vw !important;
+        min-width: 150px !important;
         height: 200px;
     }
 }

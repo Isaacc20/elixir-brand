@@ -27,7 +27,7 @@ const Landing = () => {
                 <div className="top">
                     <div className="home d-flex align-items-center justify-content-center">
                         <div className="amico w-100 h-100 d-flex justify-content-center">
-                            <h1 className='w-75 text-center d-flex flex-column align-items-center justify-content-center'>Power the future today.<button className="btn text-white">Get Started</button></h1>
+                            <h1 className='w-75 text-center d-flex flex-column align-items-center justify-content-center'>Power the future today.<Link to={'/shop'} className="btn text-white">Get Started</Link></h1>
                         </div>
                         {/* <div className='amico h-100 px-5'>
                              <img src={learning} className='w-75' alt="" /> 

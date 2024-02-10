@@ -20,6 +20,8 @@ import Login from "./Pages/Admin/Login";
 import Add from "./Pages/Admin/Upload";
 import Orders from "./Pages/Admin/Orders";
 import Register from "./Pages/Admin/Register";
+import Books from "./Components/Books";
+import Others from "./Components/Others";
 // import Home from "./Components/Home";
 
 function App() {
@@ -31,7 +33,12 @@ function App() {
         <Topnav />
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/shop" element={<Shop />} />
+          <Route path="/shop" element={<Shop />}>
+            <Route path="" element={<Books />} />
+            <Route path="books" element={<Books />} />
+            <Route path="others" element={<Others />} />
+            <Route path="*" element={<Books />} />
+          </Route>
           <Route path="/view/:id" element={<View />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout/:id" element={<Checkout />} />
