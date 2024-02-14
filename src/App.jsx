@@ -22,6 +22,9 @@ import Orders from "./Pages/Admin/Orders";
 import Register from "./Pages/Admin/Register";
 import Books from "./Components/Books";
 import Others from "./Components/Others";
+import NewOrders from "./Components/NewOrders";
+import DeliveredOrders from "./Components/DeliveredOrders";
+import OneOrder from "./Components/OneOrder";
 // import Home from "./Components/Home";
 
 function App() {
@@ -49,7 +52,12 @@ function App() {
             <Route path="dashboard">
               <Route path="" element={<Dashboard />} />
               <Route path="upload" element={<Add />} />
-              <Route path="orders" element={<Orders />} />
+              <Route path="orders" element={<Orders />} >
+                <Route path="" element={<NewOrders />} />
+                <Route path="new" element={<NewOrders />} />
+                <Route path="delivered" element={<DeliveredOrders />} />
+                <Route path=":id" element={<OneOrder />} />
+              </Route>
             </Route>
             <Route path="login" element={<Login />} />
             <Route path="registernewadmin" element={<Register />} />

@@ -1,36 +1,36 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    sendingOrder : false,
-    order : null,
-    sendingOrderFailed: false
+    gettingOrders : false,
+    orders : null,
+    gettingOrdersFailed: false
 }
 
 const OrderSlice = createSlice({
     name: 'OrderSlice',
     initialState,
     reducers: {
-        isSendingOrder: (state) => {
-            state.sendingOrder = true,
-            state.order = null,
-            state.sendingOrderFailed = false
+        isfetchingOrders: (state) => {
+            state.gettingOrders = true,
+            state.orders = null,
+            state.gettingOrdersFailed = false
         },
-        SentOrder: (state, action) => {
-            state.sendingOrder = false,
-            state.order = action.payload,
-            state.sendingOrderFailed = false
+        fetchedOrders: (state, action) => {
+            state.gettingOrders = false,
+            state.orders = action.payload,
+            state.gettingOrdersFailed = false
         },
-        failedSendingOrder: (state, action) => {
-            state.sendingOrder = false,
-            state.order = null,
-            state.sendingOrderFailed = true
+        failedfetchingOrders: (state, action) => {
+            state.gettingOrders = false,
+            state.orders = null,
+            state.gettingOrdersFailed = action.payload
         }
     }
 })
 
 export default OrderSlice.reducer
 export const {
-    isSendingOrder,
-    sentOrder,
-    failedSendingOrder
+    isfetchingOrders,
+    fetchedOrders,
+    failedfetchingOrders
 } = OrderSlice.actions

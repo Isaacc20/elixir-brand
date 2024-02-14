@@ -6,6 +6,7 @@ import { v4 } from 'uuid';
 import { collection, getDocs } from "firebase/firestore";
 import { failedFechingBooks, fetchingBooks, fetchingBooksSuccess } from "../Redux/BookSlice";
 import { failedFechingProducts, fetchingProducts, fetchingProductsSuccess } from "../Redux/productSlice";
+import { failedfetchingOrders, fetchedOrders, isfetchingOrders } from "../Redux/OrderSlice";
 
 
 // UPLOAD FRONTCOVER IMAGE
@@ -103,5 +104,36 @@ export const getProducts = async(dispatch) => {
     } catch (error) {
         console.log(error);
         dispatch(failedFechingProducts(error.message))
+    }
+}
+
+
+// ORDERS
+
+export const getOrders = async(dispatch) => {
+    dispatch(isfetchingOrders())
+    try {
+        const allOrders = []
+        const docRef = collection(db, 'Orders')
+        getDocs(docRef).then((docSnap)=>{
+            // console.log(docSnap.docs[0].data());
+            if (docSnap.empty) {
+                console.log('No matching documents.');
+                dispatch(failedfetchingOrders('Nothing here'))
+                return;
+            } else {
+            docSnap.forEach((doc) => {
+                console.log(doc.id, " => ", doc.data());
+                allOrders.push({id: doc.id, data: doc.data()})
+            });
+            dispatch(fetchedOrders(allOrders))
+            }
+        }).catch((err)=>{
+            console.log(err);
+            dispatch(failedfetchingOrders(err.message))
+        })
+    } catch (error) {
+        console.log(error);
+        dispatch(failedfetchingOrders(error.message))
     }
 }

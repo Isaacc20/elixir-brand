@@ -74,23 +74,23 @@
     /* justify-content: space-evenly !important; */
     /* gap: 20px; */
 }
-.display .toggle-div{
+/* .toggle-div{
     position: sticky;
     top: 20px;
     right: 0;
     left: 0;
-}
-.display .toggle{
+} */
+.toggle{
     /* background-color: #53276847; */
     border: 1px solid rebeccapurple;
     overflow: hidden;
 }
-.display .toggle .color{
+.toggle .color{
     background-color: #532768;
     z-index: -1;
     transition: all ease-in-out 1s !important;
 }
-.display .toggle a{
+.toggle a{
     color: #532768;
     text-shadow: 0px 0px 5px white;
 }

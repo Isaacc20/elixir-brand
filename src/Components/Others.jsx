@@ -48,7 +48,7 @@ const Others = () => {
                   <span className="px-2 fw-bold w-100 text-start">{el.data.name}</span>
                   {/* <span className="px-2 w-100 text-start">{el.data.author}</span> */}
                   <div className="d-flex align-items-end justify-content-between w-100 p-1">
-                    <small className="px-2 w-100 text-start">$ {el.data.price}</small>
+                    <small className="px-2 w-100 text-start">$ {el.data.price.toLocaleString()}</small>
                     {
                       find(el.id)
                     }

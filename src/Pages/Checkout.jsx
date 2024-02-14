@@ -5,11 +5,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup'
 import { useDispatch } from 'react-redux';
-import { isSendingOrder, sentOrder, failedSendingOrder } from "../Redux/OrderSlice";
 import { addDoc, collection, doc, getDocs } from 'firebase/firestore';
 import { db } from '../Firebase';
 import { ToastContainer, toast } from 'react-toastify';
-import { PaystackConsumer, usePaystackPayment } from 'react-paystack';
+// import { PaystackConsumer, usePaystackPayment } from 'react-paystack';
 
 const Checkout = () => {
     const [cart, setcart] = useState(JSON.parse(localStorage.getItem('cart')) || [])
@@ -17,7 +16,7 @@ const Checkout = () => {
     const [amount, setamount] = useState(0)
     const [allPrices, setallPrices] = useState()
     const [isLoading, setisLoading] = useState(false)
-    const [paymentSuccess, setpaymentSuccess] = useState(false)
+    // const [paymentSuccess, setpaymentSuccess] = useState(false)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const route = useParams()
@@ -42,7 +41,9 @@ const Checkout = () => {
             number1: '',
             number2: '',
             location: '',
-            products: ''
+            delivered: false,
+            price: '',
+            products: []
         },
         validationSchema: yup.object({
             name: yup.string().trim().required(),
@@ -50,54 +51,55 @@ const Checkout = () => {
             number1: yup.number().required(),
             number2: yup.number().required(),
             location: yup.string().trim().required(),
+            delivered: yup.boolean(),
+            price: yup.number(),
             products: yup.array()
         }),
         onSubmit: (values) => {
-            console.log(values);
-            // placeOrder(values)
-            // initializePayment(handleSuccess, handleClose)
-            // usePaystackPayment(config)
+            console.log(values, amount);
             placeOrder(values)
         }
     })
 
-    const config = {
-        reference: (new Date()).getTime().toString(),
-        email: formik.values.email,
-        amount: amount*100,
-        publicKey: 'pk_test_b25929938288a8363832f759f9d5460cffedd2e5',
-    };
-    const initializePayment = usePaystackPayment(config)
+    // const config = {
+    //     reference: (new Date()).getTime().toString(),
+    //     email: formik.values.email,
+    //     amount: amount*100,
+    //     publicKey: 'pk_test_b25929938288a8363832f759f9d5460cffedd2e5',
+    // };
+    // const initializePayment = usePaystackPayment(config)
 
-    const handleSuccess = (reference) => {
-        // Implementation for whatever you want to do with reference and after success call.
-        setpaymentSuccess(true)
-        console.log(reference);
-      };
+    // const handleSuccess = (reference) => {
+    //     // Implementation for whatever you want to do with reference and after success call.
+    //     setpaymentSuccess(true)
+    //     console.log(reference);
+    //   };
 
-    const handleClose = (reference) => {
-    // Implementation for whatever you want to do with reference and after success call.
-    console.log(reference);
-    };
+    // const handleClose = (reference) => {
+    // // Implementation for whatever you want to do with reference and after success call.
+    // console.log(reference);
+    // };
 
-    const componentProps = {
-        ...config,
-        text: 'Paystack Button Implementation',
-        onSuccess: (reference) => handleSuccess(reference),
-        onClose: handleClose
-    };
+    // const componentProps = {
+    //     ...config,
+    //     text: 'Paystack Button Implementation',
+    //     onSuccess: (reference) => handleSuccess(reference),
+    //     onClose: handleClose
+    // };
 
     useEffect(() => {
         toast.dismiss(toastId.current);
        if (cart && cart.length > 0) {
             console.log(cart);
-            const find = cart.find(el=>el.id == id)
-        if (find) {
-          setproduct([find])
-        } else if (id == 'all') {
+        if (id == 'all') {
           setproduct(cart)
         } else {
-          navigate('/notfound')
+            const find = cart.find(el=>el.id == id)
+            if (find) {
+                setproduct([find])
+            } else {
+                navigate('/notfound')
+            }
         }
        } else {
         navigate('/notfound')
@@ -126,36 +128,46 @@ const Checkout = () => {
         console.log(sum, prices);
         setallPrices(prices)
         setamount(sum)
+        formik.setFieldValue('price', sum)
       }
     }, [product])
 
-    useEffect(() => {
-        if (paymentSuccess == true) {
-            toast.success('Payment successful')
-            console.log('Payment successful');
-            placeOrder(formik.values)
-        }
-    }, [paymentSuccess])
+    // useEffect(() => {
+    //     if (paymentSuccess == true) {
+    //         toast.success('Payment successful')
+    //         console.log('Payment successful');
+    //         placeOrder(formik.values)
+    //     }
+    // }, [paymentSuccess])
     
 
     
     const placeOrder = async(values)=>{
-        console.log(values);
+        console.log(values, amount);
+        // formik.setFieldValue('price', amount)
         try {
             setisLoading(true)
-            // dispatch(isSendingOrder())
             const orderCollection = collection(db, 'Orders');
             await addDoc(orderCollection, values).then((res)=>{
                 console.log(res);
-                // dispatch(sentOrder(res))
                 setisLoading(false)
                 toast.success('Order successful')
-                setcart([])
-                localStorage.setItem('cart', JSON.stringify([]))
+                console.log(values.products, cart);
+                if (id != 'all') {
+                    for (let i = 0; i < cart.length; i++) {
+                        if (id == cart[i].id) {
+                            cart.splice(i, 1)
+                            console.log(cart);
+                            localStorage.setItem('cart', JSON.stringify(cart))
+                        }
+                    }
+                } else{
+                    setcart([])
+                    localStorage.setItem('cart', JSON.stringify([]))
+                }
                 navigate('/complete')
             }).catch((err)=>{
                 console.log(err);
-                // dispatch(failedSendingOrder(err.message))
                 setisLoading(false)
                 toast.error('Something went wrong')
             })
@@ -170,7 +182,7 @@ const Checkout = () => {
         }
     }
     
-console.log(formik.errors);
+// console.log(formik.errors);
   return (
     <>
         <div className='checkout'>
@@ -187,22 +199,22 @@ console.log(formik.errors);
                             <label htmlFor="name">
                                 <small>Full name</small>
                                 <input onChange={formik.handleChange} className={formik.errors.name? 'is-invalid form-control': 'form-control'} name='name' id='name' type="text" placeholder='Your name' />
-                                {formik.errors.name && <small className='text-danger fst-italic'>{formik.errors.name}</small>}
+                                {formik.errors.name && <small className='text-danger fst-italic'>This field is required</small>}
                             </label>
                             <label htmlFor="email">
                                 <small>Email</small>
                                 <input onChange={formik.handleChange} className={formik.errors.email? 'is-invalid form-control': 'form-control'} name='email' id='email' type="email" placeholder='Your email address' />
-                                {formik.errors.email && <small className='text-danger fst-italic'>{formik.errors.email}</small>}
+                                {formik.errors.email && <small className='text-danger fst-italic'>This field is required</small>}
                             </label>
                             <label htmlFor="number1">
                                 <small>Kindly provide your active phone number!</small>
                                 <input onChange={formik.handleChange} className={formik.errors.number1? 'is-invalid form-control': 'form-control'} name='number1' id='number1' type="number" placeholder='Phone number' />
-                                {formik.errors.number1 && <small className='text-danger fst-italic'>{formik.errors.number1}</small>}
+                                {formik.errors.number1 && <small className='text-danger fst-italic'>This field is required</small>}
                             </label>
                             <label htmlFor="number2">
                                 <small>Just incase we couldn't reach you through the first phone number!</small>
                                 <input onChange={formik.handleChange} className={formik.errors.number2? 'is-invalid form-control': 'form-control'} name='number2' id='number2' type="number" placeholder='Alternative phone number' />
-                                {formik.errors.number2 && <small className='text-danger fst-italic'>{formik.errors.number2}</small>}
+                                {formik.errors.number2 && <small className='text-danger fst-italic'>This field is required</small>}
                             </label>
                         </div>
                     </div>
@@ -212,7 +224,7 @@ console.log(formik.errors);
                             <label htmlFor="location">
                                 Where do you want to receive your order?<br />
                                 <input onChange={formik.handleChange} type="text" id="location" name='location' className={formik.errors.location? 'is-invalid form-control': 'form-control'}/>
-                                {formik.errors.location && <small className='text-danger fst-italic'>{formik.errors.location}</small>}
+                                {formik.errors.location && <small className='text-danger fst-italic'>This field is required</small>}
                             </label>
                         </div>
                     </div>
@@ -246,40 +258,16 @@ console.log(formik.errors);
                                                 formik.setFieldValue('products', product)
                                             }}
                                              className='form-control' defaultValue={1}/>
-                                        <span>Amount: {+el.data.price * +el.copies}</span>
+                                        <span>Amount: ₦{(+el.data.price * +el.copies).toLocaleString()}</span>
                                     </label>
                                 ))
                             }
                         </div>
                     </div>
                     <div>
-                        <h5>Total amount: ₦ {amount}</h5>
+                        <h5>Total amount: ₦ {amount.toLocaleString()}</h5>
                     </div>
-                    {/* <div>
-                        <h5>Payment option</h5>
-                        <div className="d-flex flex-column gap-4 w-100">
-                            <label htmlFor="checkout" className='form-control'>
-                                <input type="radio" name='payment' id='checkout'  />
-                                <span>  Pay on checkout</span><br />
-                                <small>Faster delivery</small>
-                            </label>
-                            <label htmlFor="delivery" className='form-control'>
-                                <input type="radio" name='payment' id='delivery'  />
-                                <span>  Pay on delivery</span><br />
-                                <small>Not refundable or returnable</small>
-                                <select className='form-control dropdown-toggle' name="city" id="city">
-                                    <option value="">City</option>
-                                    <option value="Umahia">Umahia</option>
-                                    <option value="Yola">Yola</option>
-                                    <option value="Uyo">Uyo</option>
-                                    <option value="Benin">And so on</option>
-                                </select>
-                            </label>
-                        </div>
-                    </div> */}
                     <div>
-                        {/* <PaystackConsumer {...componentProps} >
-                        </PaystackConsumer> */}
                         <button className="btn" type='submit' disabled={(amount == 0 || amount == null)? true: false} >Complete order</button>
                     </div>
                 </div>
