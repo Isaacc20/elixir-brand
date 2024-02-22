@@ -29,20 +29,7 @@
 }
 .top .amico{
     background-color: rgba(31, 12, 68, 0.484);
-    /* position: absolute;
-    width: 100vw;
-    z-index: -10;
-    background-color: rgb(31, 12, 68);
-    border-radius: 0px 0px 210px 520px;
-    transform: skewY(6deg);
-    text-align: end; */
 }
-/* .top .home div{
-    background-image: url('../assets/model_books(7)b.jpg');
-    background-size: cover;
-    background-position: bottom;
-    background-repeat: no-repeat;
-} */
 
 .offers .offer-div{
     flex-wrap: wrap !important;
@@ -54,17 +41,22 @@
     min-width: 250px;
     max-width: 400px;
     overflow: hidden;
-    min-height: fit-content;
-    /* height: fit-content; */
-    /* box-shadow: 0px 0px 2px grey; */
+    min-height: 400px;
+    position: relative;
 }
 
 .offers .offer .div{
-    height: 55%;
+    height: fit-content;
+    background-color: rgba(255, 255, 255, 0.596);
+    border-radius: 10% 10% 0 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .offers .offer img{
-    height: 45%;
+    height: 50%;
 }
 
 .offers h1{
@@ -83,15 +75,8 @@
     transition: all ease-in-out .3s;
 }
 
-.about-div{
-    /* background-color: #ADA0BF; */
-}
 .about{
     position: relative;
-    /* height: 90vh; */
-    /* flex-wrap: wrap; */
-    /* background-color: rgb(31, 12, 68);
-    border-radius: 370px 0 0 0; */
 }
 
 .about h1{
@@ -99,8 +84,8 @@
 }
 
 .about span{
-    line-height: 27px;
-    word-spacing: 5px;
+    /* line-height: 27px; */
+    word-spacing: 3px;
 }
 .about span button{
     border: 1px solid rgb(31, 12, 68) !important;
@@ -114,9 +99,6 @@
 }
 
 .team .offer-div .img{
-    /* background-color: rgba(240, 248, 255, 0.578);
-    border-radius: 50% 0 0 50%;
-    width: 50vw !important; */
     width: 100% !important;
     height: 75% !important;
     background-position: center;
@@ -134,17 +116,12 @@
     background-image: url('../assets/brand hood.jpg');
 }
 
-.team{
-    /* background-color: rgb(31, 12, 68); */
-    /* height: fit-content;
-    border-radius: 0; */
-}
 .team .offer-div{
-    /* width: 100vw !important; */
     display: flex;
     flex-wrap: nowrap !important;
-    overflow-x: auto;
-    
+    overflow: auto;
+    width: 100vw;
+    padding-inline-start: 10%;
 }
 .team .container h1{
     white-space: nowrap;
@@ -152,6 +129,7 @@
 }
 .team .offer{
     height: 400px;
+    width: 30vw;
     box-shadow: 0px 0px 5px gray;
 }
 .team .offer div{
@@ -159,65 +137,19 @@
 }
 
 
-.contact{
-    background-color: #ADA0BF;
-}
-.contact h1{
-    color: rgb(31, 12, 68);
-}
-.contact .div{
-    flex-wrap: wrap;
-}
-.contact form{
-    min-width: 250px;
-}
-.contact .div div p{
-    white-space: nowrap;
-}
-.contact form textarea, .contact form input{
-    border: 1px solid rgb(31, 12, 68);
-    outline-color: rgb(31, 12, 68);
-}
-.contact form button{
-    background-color: rgb(31, 12, 68);
-    color: white;
-}
-.contact form button:hover{
-    background-color: white;
-    color: rgb(31, 12, 68);
-    border: 1px solid rgb(31, 12, 68);
-}
-.contact p{
-    color: rgb(31, 12, 68);
-}
-
-/* .first{
-    height: 70vh;
-    width: 100vw;
-    margin-top: 0px;
-    background-image: url('../assets/model_books(9).jpg');
-    background-repeat: no-repeat;
-    background-size: 60vw;
-    background-position: right;
-    background-color: black;
-    background-blend-mode: luminosity;
-} */
-/* .first .inner{
-    background-color: ; 
-    background-image: linear-gradient(to right, rgba(0, 0, 0), rgba(0, 0, 0), rgba(0, 0, 0, 0));
-    
-} */
-
 @media (max-width: 1000px) {
-    .about{
+    /* .about{
         flex-direction: column;
         gap: 20px;
-    }
+    } */
     .about h1{
         position: absolute;
         top: 0;
     }
-    .about img div{
-        width: 100% !important;
+    .about img, .about div, .about div span{
+        width: 90vw !important;
     }
+    /* .about div span{
+        width:  !important;
+    } */
 }

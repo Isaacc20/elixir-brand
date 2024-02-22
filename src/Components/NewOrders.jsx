@@ -10,15 +10,11 @@ const NewOrders = () => {
     useEffect(() => {
       if (orders && orders.length > 0) {
         // console.log(orders[0].data.delivered);
-        let all = []
+        const all = []
         for (let i = 0; i < orders.length; i++) {
-            const find = orders.find(el=> el.data.delivered == false)
-            // console.log(find);
-            if (find) {
-                // let findSome = orders.splice(find, 1)
-                all = [...all, find]
+            if (orders[i].data.delivered == false) {
+                all.push(orders[i])
             }
-            // console.log(all);
         }
         setnewOrders(all)
       }
@@ -41,22 +37,22 @@ const NewOrders = () => {
                 <tbody className='w-100'>
                     {
                         newOrders.map((el, i)=>{
-                            console.log(el);
+                            console.log(el, i);
                             return (
                             <tr key={i} onClick={()=>navigate(`/admin/dashboard/orders/${el.id}`)} style={{cursor: 'pointer'}}>
                                 <td className="fw-bold">
-                                    {
+                                    {/* {
                                         el.data.products.map((element, index)=>(
-                                            <span key={index}>{element.data.title || element.data.name}<br /></span>
                                         ))
-                                    }
+                                    } */}
+                                    <span >{el.data.product.data.title || el.data.product.data.name}<br /></span>
                                 </td>
                                 <td className="fw-bold">
-                                    {
+                                    {/* {
                                         el.data.products.map((element, index)=>(
-                                            <span key={index}>{element.copies}<br /></span>
                                         ))
-                                    }
+                                    } */}
+                                    <span >{el.data.product.copies}<br /></span>
                                 </td>
                                 <td className=''>{el.data.price.toLocaleString()}</td>
                                 <td className=''>{el.data.name}</td>

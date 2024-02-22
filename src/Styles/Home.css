@@ -22,8 +22,13 @@
     z-index: 1000;
 }
 .topnav .logo:hover{
-    border: none;
-    cursor: pointer;
+    border: none !important;
+}
+.topnav .logo:active{
+    border: none !important;
+}
+.topnav .logo:focus-within{
+    border: none !important;
 }
 /* .topnav .search{
     border: 1px solid white;

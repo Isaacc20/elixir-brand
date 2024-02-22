@@ -1,10 +1,10 @@
 .shop .search{
     background-image: url('../assets/brand-cards.jpg');
     background-attachment: fixed;
-    background-position: center;
+    background-position: bottom;
     background-size: cover;
     box-shadow: 0px 0px 100px rgb(0, 0, 0) inset;
-    height: 70vh;
+    /* height: 70vh; */
 }
 .shop .search .search-div{
     /* box-shadow: inset 0px 0px 100px #532768; */
@@ -164,11 +164,24 @@
 
 @media (max-width: 500px) {
     .display .card-div{
-        gap: 20px !important;
+        /* gap: 20px !important; */
+        width: 100vw !important;
+        justify-content: space-around !important;
     }
     .display .card-div .cards{
         width: 40vw !important;
-        min-width: 150px !important;
+        /* min-width: 150px !important; */
         height: 200px;
+    }
+}
+
+@media (max-width: 400px) {
+    .display .card-div{
+        gap: 0 !important;
+    }
+    .display .card-div .cards{
+        /* width: 40vw !important; */
+        /* min-width: 150px !important; */
+        height: fit-content;
     }
 }

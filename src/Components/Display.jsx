@@ -33,7 +33,7 @@ const Display = () => {
       <div className="display container p-4">
         <ToastContainer />
         <div className="dd w-100 d-flex flex-column align-items-center justify-content-evenly">
-          <h4 className="text-start w-100 py-3 px-5">All items</h4>
+          {/* <h4 className="text-start w-100 py-3 px-5">All items</h4> */}
           <div className="toggle-div">
             <div className="d-flex align-items-stretch rounded-3 shadow-sm toggle position-relative">
               <div className={color == 'left'? 'color w-50 position-absolute top-0 bottom-0 rounded-3 start-0': 'color w-50 position-absolute top-0 bottom-0 rounded-3 end-0'}></div>

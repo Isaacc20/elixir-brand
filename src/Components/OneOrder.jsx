@@ -20,6 +20,7 @@ const OneOrder = () => {
             const find = orders.find(el=>el.id == id)
             if (find) {
                 setcurrentOrder(find)
+                console.log(find);
             } else{
                 navigate('/notfound')
             }
@@ -112,43 +113,45 @@ const OneOrder = () => {
         <div>
             {
                 currentOrder && 
-                <div className='container'>
-                    <div className="one">
-                        <h4>User details</h4>
-                        <h6>Name : <span className="fw-normal">{currentOrder.data.name}</span></h6>
-                        <h6>Email address : <span className="fw-normal">{currentOrder.data.email}</span></h6>
-                        <h6>Phone number : <span className="fw-normal">{currentOrder.data.number1}</span></h6>
-                        <h6>Alternative phone number : <span className="fw-normal">{currentOrder.data.number2}</span></h6>
-                        <h6>Location : <span className="fw-normal">{currentOrder.data.location}</span></h6>
+                <div className='container d-flex flex-column gap-5'>
+                    <div className="one w-75 mx-auto d-flex flex-column align-items-center gap-3">
+                        <h1 className='text-center'>User details</h1>
+                        <h6 className='w-100 d-flex flex-wrap justify-content-between'>Name : <span className="fw-normal">&nbsp; &nbsp; &nbsp;{currentOrder.data.data.name}</span></h6>
+                        <h6 className='w-100 d-flex flex-wrap justify-content-between'>Email address : <span className="fw-normal">&nbsp; &nbsp; &nbsp;{currentOrder.data.data.email}</span></h6>
+                        <h6 className='w-100 d-flex flex-wrap justify-content-between'>Phone number : <span className="fw-normal">&nbsp; &nbsp; &nbsp;{currentOrder.data.data.number1}</span></h6>
+                        <h6 className='w-100 d-flex flex-wrap justify-content-between'>Alternative phone number : <span className="fw-normal">&nbsp; &nbsp; &nbsp;{currentOrder.data.data.number2}</span></h6>
+                        <h6 className='w-100 d-flex flex-wrap justify-content-between'>Location : <span className="fw-normal">&nbsp; &nbsp; &nbsp;{currentOrder.data.data.location}</span></h6>
                     </div>
                     <div className="one">
-                        <h4>Products</h4>
-                        {
-                            currentOrder.data.products.map((el, i)=>(
-                                <div key={i}>
-                                    <img src={el.data.front || el.data.images[0]} width={'250px'} className='rounded-3' alt="" />
-                                    <h6>Name : <span className="fw-normal">{el.data.name || el.data.title}</span></h6>
-                                    <h6>Author : <span className="fw-normal">{el.data.name || el.data.author}</span></h6>
-                                    <h6>Price per copy : <span className="fw-normal">₦{el.data.price.toLocaleString()}</span></h6>
-                                    <h6>Copies : <span className="fw-normal">{el.copies}</span></h6>
-                                    <h6>Total price : <span className="fw-normal">₦{el.price.toLocaleString()}</span></h6>
-                                    <h6>Category : <span className="fw-normal">{el.data.category}</span></h6>
-                                    <h6>Location : <span className="fw-normal">{el.data.location}</span></h6>
-                                </div>
-                            ))
-                        }
-                        <h6>Total : ₦ {currentOrder.data.price.toLocaleString()}</h6>
+                        <h4 className='text-center'>Products</h4>
+                        {/* {
+                            currentOrder.data.products.map((el, i)=>( */}
+                        <div className='d-flex flex-wrap align-items-center justify-content-around gap-3'>
+                            <img src={currentOrder.data.data.product.data.front || currentOrder.data.data.product.data.images[0]} width={'250px'} height={'300px'} className='rounded-3' alt="" />
+                            <div className='d-flex flex-column gap-3'>
+                              <h6>Name : <span className="fw-normal">{currentOrder.data.data.product.data.name || currentOrder.data.data.product.data.title}</span></h6>
+                              {currentOrder.data.data.product.data.author && <h6>Author : <span className="fw-normal">{currentOrder.data.data.product.data.author}</span></h6>}
+                              <h6>Price per copy : <span className="fw-normal">₦{currentOrder.data.data.product.data.price.toLocaleString()}</span></h6>
+                              <h6>Copies : <span className="fw-normal">{currentOrder.data.data.product.copies}</span></h6>
+                              <h6>Total price : <span className="fw-normal">₦{currentOrder.data.data.price.toLocaleString()}</span></h6>
+                              {currentOrder.data.data.product.data.category && <h6>Category : <span className="fw-normal">{currentOrder.data.data.product.data.category}</span></h6>}
+                            </div>
+                            {/* <h6>Location : <span className="fw-normal">{currentOrder.data.data.product.data.location}</span></h6> */}
+                        </div>
+                            {/* ))
+                        } */}
+                        <h6 className='mx-auto mt-3 d-flex justify-content-around'>Total : <span className="fw-normal">₦ {currentOrder.data.data.price.toLocaleString()}</span></h6>
                     </div>
-                    <div className="one">
-                        <h4>Status</h4>
+                    <div className="one d-flex justify-content-around">
+                        <h4 className='text-center'>Status</h4>
                         {
-                            currentOrder.data.delivered?
+                            currentOrder.data.data.delivered ?
                             <div className=' my-2'>
                                 <span className='bg-light text-success fw-bold rounded-3 p-2'>Delivered</span>
                             </div>:
                             <div className='d-flex flex-column align-items-start gap-2 my-2'>
                                 <span className="bg-light text-danger fw-bold rounded-3 p-2">Not delivered</span>
-                                <button onClick={confirmOrder(currentOrder.id)} className='btn btn-success'>Confirm delivery</button>
+                                <button onClick={()=> confirmOrder(currentOrder.data.id)} className='btn btn-success'>Confirm delivery</button>
                             </div>
                         }
                     </div>

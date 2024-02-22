@@ -8,23 +8,40 @@ import { useDispatch } from 'react-redux';
 import { addDoc, collection, doc, getDocs } from 'firebase/firestore';
 import { db } from '../Firebase';
 import { ToastContainer, toast } from 'react-toastify';
-// import { PaystackConsumer, usePaystackPayment } from 'react-paystack';
+import { closePaymentModal, useFlutterwave } from 'flutterwave-react-v3';
 
 const Checkout = () => {
     const [cart, setcart] = useState(JSON.parse(localStorage.getItem('cart')) || [])
     const [product, setproduct] = useState()
     const [amount, setamount] = useState(0)
-    const [allPrices, setallPrices] = useState()
+    const [copy, setcopy] = useState()
     const [isLoading, setisLoading] = useState(false)
-    // const [paymentSuccess, setpaymentSuccess] = useState(false)
+    const [paymentSuccessful, setpaymentSuccessful] = useState(false)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const route = useParams()
     const id = route.id
     const toastId = React.useRef(null)
-
-
     const load = () => toastId.current = toast.loading('Sending request')
+
+
+    useEffect(() => {
+        setcopy(1)
+        toast.dismiss(toastId.current);
+       if (cart && cart.length > 0) {
+            console.log(cart);
+        const find = cart.find(el=>el.id == id)
+        if (find) {
+            console.log(find);
+            setproduct({...find})
+        } else {
+            navigate('/notfound')
+        }
+       } else {
+        navigate('/notfound')
+       }
+    }, [])
+
     useEffect(() => {
         console.log(isLoading);
       if (isLoading) {
@@ -33,6 +50,18 @@ const Checkout = () => {
         toast.dismiss(toastId.current);
       }
     }, [isLoading])
+
+    useEffect(() => {
+      if (product != null) {
+        console.log(product);
+        let prod = {...product, copies: copy}
+        setproduct(prod)
+        formik.setFieldValue('product', prod)
+        let price =  product.data.price * copy
+        setamount(price)
+        formik.setFieldValue('price', price)
+      }
+    }, [copy])
 
     const formik = useFormik({
         initialValues: {
@@ -43,7 +72,7 @@ const Checkout = () => {
             location: '',
             delivered: false,
             price: '',
-            products: []
+            product: {...product}
         },
         validationSchema: yup.object({
             name: yup.string().trim().required(),
@@ -53,98 +82,27 @@ const Checkout = () => {
             location: yup.string().trim().required(),
             delivered: yup.boolean(),
             price: yup.number(),
-            products: yup.array()
+            product: yup.object()
         }),
         onSubmit: (values) => {
-            console.log(values, amount);
-            placeOrder(values)
+            console.log(values);
+            // placeOrder(values)
+            handleFlutterPayment({
+                callback: (response) => {
+                   console.log(response);
+                   if (response.status == 'completed' && response.charge_response_message == "Approved Successful") {
+                    // setpaymentSuccessful(true)
+                        placeOrder(values)
+                   }
+                    closePaymentModal() // this will close the modal programmatically
+                },
+                onClose: () => {},
+              });
         }
     })
-
-    // const config = {
-    //     reference: (new Date()).getTime().toString(),
-    //     email: formik.values.email,
-    //     amount: amount*100,
-    //     publicKey: 'pk_test_b25929938288a8363832f759f9d5460cffedd2e5',
-    // };
-    // const initializePayment = usePaystackPayment(config)
-
-    // const handleSuccess = (reference) => {
-    //     // Implementation for whatever you want to do with reference and after success call.
-    //     setpaymentSuccess(true)
-    //     console.log(reference);
-    //   };
-
-    // const handleClose = (reference) => {
-    // // Implementation for whatever you want to do with reference and after success call.
-    // console.log(reference);
-    // };
-
-    // const componentProps = {
-    //     ...config,
-    //     text: 'Paystack Button Implementation',
-    //     onSuccess: (reference) => handleSuccess(reference),
-    //     onClose: handleClose
-    // };
-
-    useEffect(() => {
-        toast.dismiss(toastId.current);
-       if (cart && cart.length > 0) {
-            console.log(cart);
-        if (id == 'all') {
-          setproduct(cart)
-        } else {
-            const find = cart.find(el=>el.id == id)
-            if (find) {
-                setproduct([find])
-            } else {
-                navigate('/notfound')
-            }
-        }
-       } else {
-        navigate('/notfound')
-       }
-    }, [])
-
-    useEffect(() => {
-      if (product && product.length > 0) {
-        setamount(0)
-        let prices = []
-        let sum = 0
-        product.forEach((el, i) => {
-            el.copies = 1
-
-            let price = Number(el.data.price) * Number(el.copies)
-            console.log(el.data.price, el.copies, price);
-            prices = [...prices, price]
-            el.price = price
-            console.log(el);
-            formik.setFieldValue('products', [el])
-            // console.log(price, prices);
-        });
-        for (let i = 0; i < prices.length; i++) {
-            sum += prices[i];
-        }
-        console.log(sum, prices);
-        setallPrices(prices)
-        setamount(sum)
-        formik.setFieldValue('price', sum)
-      }
-    }, [product])
-
-    // useEffect(() => {
-    //     if (paymentSuccess == true) {
-    //         toast.success('Payment successful')
-    //         console.log('Payment successful');
-    //         placeOrder(formik.values)
-    //     }
-    // }, [paymentSuccess])
-    
-
     
     const placeOrder = async(values)=>{
         console.log(values, amount);
-        // formik.setFieldValue('price', amount)
         try {
             setisLoading(true)
             const orderCollection = collection(db, 'Orders');
@@ -153,17 +111,12 @@ const Checkout = () => {
                 setisLoading(false)
                 toast.success('Order successful')
                 console.log(values.products, cart);
-                if (id != 'all') {
-                    for (let i = 0; i < cart.length; i++) {
-                        if (id == cart[i].id) {
-                            cart.splice(i, 1)
-                            console.log(cart);
-                            localStorage.setItem('cart', JSON.stringify(cart))
-                        }
+                for (let i = 0; i < cart.length; i++) {
+                    if (id == cart[i].id) {
+                        cart.splice(i, 1)
+                        console.log(cart);
+                        localStorage.setItem('cart', JSON.stringify(cart))
                     }
-                } else{
-                    setcart([])
-                    localStorage.setItem('cart', JSON.stringify([]))
                 }
                 navigate('/complete')
             }).catch((err)=>{
@@ -178,11 +131,29 @@ const Checkout = () => {
             setTimeout(() => {
                 navigate(-1)
             }, 5000);
-            // toast.dismiss(toastId.current)
         }
     }
+
+    const config = {
+        public_key: 'FLWPUBK_TEST-8f49044c9bb98c135e81b380bc057787-X',
+        tx_ref: Date.now(),
+        amount: formik.values.price,
+        currency: 'NGN',
+        payment_options: 'card,mobilemoney,ussd',
+        customer: {
+          email: formik.values.email,
+           phone_number: formik.values.number1 || formik.values.number2,
+          name: formik.values.name,
+        },
+        customizations: {
+          title: 'Elixir Books',
+          description: `Payment for cart item`,
+        //   logo: 'https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg',
+        },
+      };
     
-// console.log(formik.errors);
+      const handleFlutterPayment = useFlutterwave(config);
+    
   return (
     <>
         <div className='checkout'>
@@ -232,35 +203,20 @@ const Checkout = () => {
                         <h5>Products</h5>
                         <div className="d-flex flex-column gap-4 w-100">
                             {
-                                (product && product.length > 0) &&
-                                product.map((el, i)=>(
-                                    <label key={i} htmlFor={`product${i}`}>
-                                        How many copies of &nbsp; {el.data.name || el.data.title}<br />
-                                        <input type="number" id={`product${i}`} name={`product${i}`} 
+                                // (product && product.length > 0) &&
+                                product &&
+                                    <label htmlFor={`product`}>
+                                        How many copies of &nbsp; <span className="fw-bold">{product.data.name || product.data.title}</span><br />
+                                        <input type="number" id={`product`} name={`product`} min={1} onWheel={(e)=>e.currentTarget.blur()} 
                                         onChange={
                                             (e)=>{
-                                                let sum = 0
-                                                let prices = [...allPrices]
-                                                let copy = []
-                                                console.log(prices);
-                                                let price = +el.data.price * +e.target.value
-                                                console.log((price, prices));
-                                                let find = prices.findIndex(element=>element == el.data.price)
-                                                prices.splice(find, 1, price)
-                                                for (let i = 0; i < prices.length; i++) {
-                                                    sum += prices[i];
-                                                    copy = [...copy, e.target.value]
-                                                }
-                                                setamount(sum)
-                                                let prod = product;
-                                                prod[i].copies = e.target.value
-                                                setproduct(prod)
-                                                formik.setFieldValue('products', product)
-                                            }}
+                                                setcopy(e.target.value)
+                                            }
+                                        }
                                              className='form-control' defaultValue={1}/>
-                                        <span>Amount: ₦{(+el.data.price * +el.copies).toLocaleString()}</span>
+                                        <span>Amount: ₦{(+product.data.price * copy).toLocaleString()}</span>
                                     </label>
-                                ))
+                                
                             }
                         </div>
                     </div>

@@ -29,10 +29,6 @@ const Landing = () => {
                         <div className="amico w-100 h-100 d-flex justify-content-center">
                             <h1 className='w-75 text-center d-flex flex-column align-items-center justify-content-center'>Power the future today.<Link to={'/shop'} className="btn text-white">Get Started</Link></h1>
                         </div>
-                        {/* <div className='amico h-100 px-5'>
-                             <img src={learning} className='w-75' alt="" /> 
-                            <img src={learning} className='w-50' alt="" />
-                        </div> */}
                     </div>
                 </div>
                 <div className="offers text-center bg-white d-flex flex-column justify-content-center align-items-center p-5">
@@ -55,7 +51,7 @@ const Landing = () => {
                                     <h5>Podcast</h5>
                                     <span>On this page we shall be investing in Posterity by learning and engaging the principle of a fulfilled life, transforming men and women with the tool of wisdom in stewarding God's resources and living a Legendary life.</span>
                                 </div>
-                                <button className="btn w-100 text-white">Coming soon</button>
+                                <button disabled className="btn w-100 text-white">Coming soon</button>
                             </div>
                         </div>
                         <div className='offer shadow rounded-2 p-1'>
@@ -65,20 +61,17 @@ const Landing = () => {
                                     <h5>Scribing</h5>
                                     <span>Are you in need of a scribbler? <br /> This page is coming soon</span>
                                 </div>
-                                <button className="btn w-100 text-white">Coming soon</button>
+                                <button disabled className="btn w-100 text-white">Coming soon</button>
                             </div>
                         </div>
                         {/* <div><Reading /></div> */}
                     </div>
                 </div>
-                <div className="h-100 about d-flex align-items-center p-5" id='about'>
-                    {/* <div className="h-100"> */}
-                        {/* <div className='h-100'> */}
-                            <img src={hood} className='h-100 w-50 px-4' alt="" />
-                        {/* </div> */}
-                        <div className="w-50 text-start d-flex flex-column gap-3 px-4 text-light">
+                <div className="h-100 about d-flex flex-wrap justify-content-center align-items-center p-5" id='about'>
+                        <img src={hood} className='h-100 w-50' alt="" />
+                        <div className="w-50 text-start d-flex flex-column gap-3 text-light">
                             <h1 className='text-md-start'>About Us</h1>
-                            <span className='text-black d-flex flex-column align-items-start justify-content-around gap-3'>Elixir is a brand geared towards personal growth and empowerment.
+                            <span className='text-black w-100'>Elixir is a brand geared towards personal growth and empowerment.
 
 Discover a world of transformation through our skill-building resources, enlightening books, and insightful podcasts. <br /> Elixir is your partner in the journey of unlocking your potential, cultivating meaningful relationships, and achieving financial prosperity. <br />
 
@@ -88,27 +81,14 @@ Empower yourself with Elixir. Your journey to a better you starts here.
 
 
 Your journey to a better you is our is our utmost priority!
-{/* <button className="btn bg-white text-dark">Lorem ipsum</button> */}
 </span>
                         </div>
                     {/* </div> */}
                 </div>
-                {/* <div className="first">
-                    <div className='inner h-100 d-flex align-items-center'>
-                        <div className="container w-50 float-start px-5 mx-5 d-flex flex-column gap-5">
-                            <h1 className='text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, perspiciatis!</h1>
-                        </div>
-                    </div>
-                </div> */}
-                <div className="team offers about p-5 d-flex flex-column justify-content-center align-items-center">
+                <div className="team container offers about p-5 d-flex flex-column justify-content-center align-items-center">
                     <div className="d-flex align-items-center justify-content-around w-100 container gap-5">
                         <hr className='bg-light border-light w-100' /><h1 className='text-center text-light py-5'>MEET THE TEAM</h1><hr className='bg-light border-light w-100' />
                     </div>
-                    {/* <div className="d-flex">
-                        <div className="d-flex-flex-column p-1">
-
-                        </div>
-                    </div> */}
                     <div className="offer-div d-flex justify-content-start align-items-stretch offers gap-5 py-3">
                         <div className='offer shadow rounded-2 p-1'>
                             {/* <img src={hood_fv} className='' alt="" /> */}
@@ -118,7 +98,6 @@ Your journey to a better you is our is our utmost priority!
                                     <h5 className='fw-bold py-2'>John Doe</h5>
                                     <span>Lorem ipsum dolor</span>
                                 </div>
-                                {/* <button className="btn w-100 text-white">Lorem, ipsum.</button> */}
                             </div>
                         </div>
                         <div className='offer shadow rounded-2 p-1'>
@@ -146,11 +125,10 @@ Your journey to a better you is our is our utmost priority!
                         {/* <div><Reading /></div> */}
                     </div>
                 </div>
-                <div className='contact py-5' id='contact'>
+                {/* <div className='contact py-5' id='contact'>
                     <div className="container px-5">
                         <h1 className='text-center mb-5'>Contact us</h1>
                         <div className='div d-flex align-items-stretch justify-content-around gap-5'>
-                            {/* <h4>Our socials</h4> */}
                             <form className='d-flex flex-column w-50 justify-content-center gap-4'>
                                 <textarea className='rounded-3 p-2 px-3' name="" id="" cols="50" rows="5" placeholder='Write what you want to tell us here...'></textarea>
                                 <input className='rounded-3 p-2 px-3' type="text" placeholder='Your name' />
@@ -162,11 +140,10 @@ Your journey to a better you is our is our utmost priority!
                                 <p className="w-75 d-flex align-items-center gap-2" ><RiTwitterLine className='h4' /> test.twitter.com</p>
                                 <p className="w-75 d-flex align-items-center gap-2" ><RiMailLine className='h4' /> test@gmail.com</p>
                                 <p className="w-75 d-flex align-items-center gap-2" ><CiLocationOn className='h4' /> test area, test street, test, city, Nigeria</p>
-                                {/* <button className="btn rounded-pill">send</button> */}
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     </>
