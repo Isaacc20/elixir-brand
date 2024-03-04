@@ -18,7 +18,7 @@ const Topnav = () => {
                     <img className='d-none' src={logo1} width={'90px'} alt="LOGO" />
                     <Link to={'/'} className="rounded-1 text-decoration-none text-black px-3 py-2 d-flex align-items-center justify-content-between small">Home</Link>
                     <Link to={'/shop'} className="rounded-1 text-decoration-none text-black px-3 py-2 d-flex align-items-center justify-content-between small">Shop</Link>
-                    <a href='/#about' className="rounded-1 text-decoration-none text-black px-3 py-2 d-flex align-items-center justify-content-between small">ABOUT</a>
+                    <a href='/#about' className="rounded-1 text-decoration-none text-black px-3 py-2 d-flex align-items-center justify-content-between small">About Us</a>
                     <a href='/#contact' className="rounded-1 text-decoration-none text-black px-3 py-2 d-flex align-items-center justify-content-between small">Contact us</a>
                     <Link to={'/cart'} className="rounded-1 text-decoration-none text-black px-3 py-2 d-flex align-items-center justify-content-between gap-2"><BsCart2 /></Link>
                 </div>
