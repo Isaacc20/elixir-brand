@@ -20,7 +20,7 @@ const Footer = () => {
                         <Link to={'/shop'} className='text-white w-100 text-start'>Shop</Link>
                         {/* <Link className='text-white w-100 text-start'>Podcast</Link> */}
                         <Link to={'/cart'} className='text-white w-100 text-start'>Cart</Link>
-                        <Link to={'/admin/adshboard'} className='text-white w-100 text-start fw-normal'><small>Admin</small></Link>
+                        <Link to={'/admin/dashboard'} className='text-white w-100 text-start fw-normal'><small>Admin</small></Link>
                         {/* <Link className='text-white w-100 text-start'>Lorem ipsum</Link>
                         <Link className='text-white w-100 text-start'>Lorem ipsum</Link> */}
                     </div>
