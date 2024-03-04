@@ -116,36 +116,36 @@ const OneOrder = () => {
                 <div className='container d-flex flex-column gap-5'>
                     <div className="one w-75 mx-auto d-flex flex-column align-items-center gap-3">
                         <h1 className='text-center'>User details</h1>
-                        <h6 className='w-100 d-flex flex-wrap justify-content-between'>Name : <span className="fw-normal">&nbsp; &nbsp; &nbsp;{currentOrder.data.data.name}</span></h6>
-                        <h6 className='w-100 d-flex flex-wrap justify-content-between'>Email address : <span className="fw-normal">&nbsp; &nbsp; &nbsp;{currentOrder.data.data.email}</span></h6>
-                        <h6 className='w-100 d-flex flex-wrap justify-content-between'>Phone number : <span className="fw-normal">&nbsp; &nbsp; &nbsp;{currentOrder.data.data.number1}</span></h6>
-                        <h6 className='w-100 d-flex flex-wrap justify-content-between'>Alternative phone number : <span className="fw-normal">&nbsp; &nbsp; &nbsp;{currentOrder.data.data.number2}</span></h6>
-                        <h6 className='w-100 d-flex flex-wrap justify-content-between'>Location : <span className="fw-normal">&nbsp; &nbsp; &nbsp;{currentOrder.data.data.location}</span></h6>
+                        <h6 className='w-100 d-flex flex-wrap justify-content-between'>Name : <span className="fw-normal">&nbsp; &nbsp; &nbsp;{currentOrder.data.name}</span></h6>
+                        <h6 className='w-100 d-flex flex-wrap justify-content-between'>Email address : <span className="fw-normal">&nbsp; &nbsp; &nbsp;{currentOrder.data.email}</span></h6>
+                        <h6 className='w-100 d-flex flex-wrap justify-content-between'>Phone number : <span className="fw-normal">&nbsp; &nbsp; &nbsp;{currentOrder.data.number1}</span></h6>
+                        <h6 className='w-100 d-flex flex-wrap justify-content-between'>Alternative phone number : <span className="fw-normal">&nbsp; &nbsp; &nbsp;{currentOrder.data.number2}</span></h6>
+                        <h6 className='w-100 d-flex flex-wrap justify-content-between'>Location : <span className="fw-normal">&nbsp; &nbsp; &nbsp;{currentOrder.data.location}</span></h6>
                     </div>
                     <div className="one">
                         <h4 className='text-center'>Products</h4>
                         {/* {
                             currentOrder.data.products.map((el, i)=>( */}
                         <div className='d-flex flex-wrap align-items-center justify-content-around gap-3'>
-                            <img src={currentOrder.data.data.product.data.front || currentOrder.data.data.product.data.images[0]} width={'250px'} height={'300px'} className='rounded-3' alt="" />
+                            <img src={currentOrder.data.product.data.front || currentOrder.data.product.data.images[0]} width={'250px'} height={'300px'} className='rounded-3' alt="" />
                             <div className='d-flex flex-column gap-3'>
-                              <h6>Name : <span className="fw-normal">{currentOrder.data.data.product.data.name || currentOrder.data.data.product.data.title}</span></h6>
-                              {currentOrder.data.data.product.data.author && <h6>Author : <span className="fw-normal">{currentOrder.data.data.product.data.author}</span></h6>}
-                              <h6>Price per copy : <span className="fw-normal">₦{currentOrder.data.data.product.data.price.toLocaleString()}</span></h6>
-                              <h6>Copies : <span className="fw-normal">{currentOrder.data.data.product.copies}</span></h6>
-                              <h6>Total price : <span className="fw-normal">₦{currentOrder.data.data.price.toLocaleString()}</span></h6>
-                              {currentOrder.data.data.product.data.category && <h6>Category : <span className="fw-normal">{currentOrder.data.data.product.data.category}</span></h6>}
+                              <h6>Name : <span className="fw-normal">{currentOrder.data.product.data.name || currentOrder.data.product.data.title}</span></h6>
+                              {currentOrder.data.product.data.author && <h6>Author : <span className="fw-normal">{currentOrder.data.product.data.author}</span></h6>}
+                              <h6>Price per copy : <span className="fw-normal">₦{currentOrder.data.product.data.price.toLocaleString()}</span></h6>
+                              <h6>Copies : <span className="fw-normal">{currentOrder.data.product.copies}</span></h6>
+                              <h6>Total price : <span className="fw-normal">₦{currentOrder.data.price.toLocaleString()}</span></h6>
+                              {currentOrder.data.product.data.category && <h6>Category : <span className="fw-normal">{currentOrder.data.product.data.category}</span></h6>}
                             </div>
-                            {/* <h6>Location : <span className="fw-normal">{currentOrder.data.data.product.data.location}</span></h6> */}
+                            {/* <h6>Location : <span className="fw-normal">{currentOrder.data.product.data.location}</span></h6> */}
                         </div>
                             {/* ))
                         } */}
-                        <h6 className='mx-auto mt-3 d-flex justify-content-around'>Total : <span className="fw-normal">₦ {currentOrder.data.data.price.toLocaleString()}</span></h6>
+                        <h6 className='mx-auto mt-3 d-flex justify-content-around'>Total : <span className="fw-normal">₦ {currentOrder.data.price.toLocaleString()}</span></h6>
                     </div>
                     <div className="one d-flex justify-content-around">
                         <h4 className='text-center'>Status</h4>
                         {
-                            currentOrder.data.data.delivered ?
+                            currentOrder.data.delivered ?
                             <div className=' my-2'>
                                 <span className='bg-light text-success fw-bold rounded-3 p-2'>Delivered</span>
                             </div>:
